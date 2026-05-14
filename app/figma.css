@@ -75,10 +75,16 @@
   	box-sizing: border-box;
   	gap: 16px;
 }
-.filemagnifyingglass {
+.filemagnifyingglass,
+.problem-icon {
   	height: 43px;
   	width: 43px;
+  	min-width: 43px;
   	position: relative;
+  	display: flex;
+  	align-items: center;
+  	justify-content: center;
+  	flex-shrink: 0;
 }
 .vector-icon {
   	position: absolute;
@@ -171,12 +177,13 @@
 }
 .gemini-generated-image-122dul1-icon {
   	position: absolute;
-  	top: 291px;
-  	left: 851px;
+  	/* Figma 1440: top:291 left:851 w:435 h:426 → ancorado pela direita pra escalar */
+  	top: clamp(180px, 20.21vw, 291px);
+  	right: clamp(16px, 10.69vw, 154px);
+  	width: clamp(240px, 30.21vw, 435px);
+  	height: clamp(240px, 29.58vw, 426px);
   	box-shadow: 0px 4px 9.2px 5px rgba(0, 0, 0, 0.25);
   	border-radius: 16px;
-  	width: 435px;
-  	height: 426px;
   	object-fit: cover;
 }
 /* ===== Process section (25:2761) — flex column responsivo ===== */
@@ -3152,13 +3159,9 @@
     max-width: 720px;
     margin: 8px auto 0;
   }
-  /* Tabs numerados no topo lado a lado */
+  /* Mobile: tabs removidos por completo — só os cards empilhados. */
   .mobile-process-tabs {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    display: none;
   }
   /* Cada tab é um wrapper coluna: círculo numerado + label abaixo (Figma 152:9527) */
   .mobile-process-tab {
@@ -3174,43 +3177,28 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
+  /* Mobile: sem números nas tabs — só labels (clicáveis). */
   .mobile-process-tab-circle {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1.265px solid #cbd5e1;
-    background: transparent;
-    color: #64748b;
-    font-family: Inter, system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
-  }
-  .mobile-process-tab[data-active] .mobile-process-tab-circle {
-    background: #ea580c;
-    border-color: transparent;
-    color: #fff;
-    box-shadow: 0px 4px 6px rgba(234, 88, 12, 0.4);
+    display: none;
   }
   .mobile-process-tab-text {
     font-family: Inter, system-ui, sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.5;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
     color: #64748b;
     text-align: center;
     white-space: normal;
     word-break: break-word;
-    transition: color 180ms ease, font-weight 180ms ease;
+    /* Padding + border bottom pra dar visual de "tab" sem o círculo numerado */
+    padding: 6px 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 180ms ease, font-weight 180ms ease, border-color 180ms ease;
   }
   .mobile-process-tab[data-active] .mobile-process-tab-text {
-    color: #020617;
-    font-weight: 600;
+    color: #ea580c;
+    font-weight: 700;
+    border-bottom-color: #ea580c;
   }
   .mobile-process-tab:focus-visible {
     outline: none;

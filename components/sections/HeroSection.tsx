@@ -1,10 +1,10 @@
 import {
   ArrowRight,
-  CaretDown,
   FileMagnifyingGlass,
   MagnifyingGlass,
   ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
+import CaretDownIcon from "@/components/ui/CaretDownIcon";
 
 const WHITE = "#f8fafc";
 const DARK = "#020617";
@@ -125,9 +125,8 @@ export default function HeroSection() {
       </div>
       <div className="caretdown">
         <div className="arrowright">
-          <CaretDown
+          <CaretDownIcon
             className="vector-icon39"
-            weight="bold"
             style={{ color: DARK }}
           />
         </div>

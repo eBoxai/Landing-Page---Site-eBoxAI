@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { CaretDown } from "@phosphor-icons/react/dist/ssr";
+import CaretDownIcon from "@/components/ui/CaretDownIcon";
 import { useProcessScrollLock } from "@/hooks/useProcessScrollLock";
 import { PROCESS_STEPS } from "./data/processSteps";
 import MobileProcessCards from "./MobileProcessCards";
@@ -92,7 +92,7 @@ export default function ProcessSection() {
             </div>
             <div className="container34">
               <div className="icon-parent">
-                <CaretDown className="icon" weight="bold" />
+                <CaretDownIcon className="icon" />
                 <div className="text">
                   <div className="scroll-para-explorar">
                     Scroll para explorar
