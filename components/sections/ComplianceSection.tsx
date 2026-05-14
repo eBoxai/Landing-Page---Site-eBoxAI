@@ -1,84 +1,78 @@
-import Image from "next/image";
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 
-const legal = [
-  "LGPD — Proteção de Dados Garantida",
-  "Conformidade com Padrões CONARQ\ne e-ARQ Brasil",
-  "Gestão Automática de Prazos Conforme\nCONARQ",
-  "U Trilha de Auditoria para Órgãos de\nControle",
-  "Assinatura Digital ICP-Brasil Integrada",
-];
+const ORANGE_LIGHT = "#f97316";
 
-const security = [
-  "Criptografia em Repouso e em Trânsito",
-  "Controle Granular de Acesso por Perfil",
-  "Backup Redundante em Múltiplas Regiões",
-  "Registro Imutável de Todas as Operações",
-];
-
-function CheckList({ items }: { items: string[] }) {
+function CheckItem({ children }: { children: React.ReactNode }) {
   return (
-    <ul className="flex flex-col gap-5">
-      {items.map((it) => (
-        <li key={it} className="flex items-start gap-4">
+    <div className="checkcircle-group">
+      <div className="checkcircle">
+        <div className="arrowright">
           <CheckCircle
-            size={26}
-            className="mt-0.5 shrink-0 text-brand-2"
+            className="vector-icon11"
             weight="regular"
+            style={{ color: ORANGE_LIGHT }}
           />
-          <span className="whitespace-pre-line text-lg text-white">{it}</span>
-        </li>
-      ))}
-    </ul>
+        </div>
+      </div>
+      <div className="text-wrapper">
+        <div className="container66">
+          <div className="lgpd-proteo">{children}</div>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function ComplianceSection() {
   return (
-    <section id="compliance" className="bg-dark py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid items-start gap-16 lg:grid-cols-[minmax(0,440px)_minmax(0,1fr)] lg:gap-24">
-          <div className="flex flex-col gap-8">
-            <div className="relative aspect-[407/342] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/gemini-10zq71.jpg"
-                alt="Acervo físico com etiquetas QR"
-                fill
-                sizes="(min-width: 1024px) 407px, 100vw"
-                className="object-cover"
-              />
+    <div className="dashboardpreview">
+      <div className="container62">
+        <div className="container63">
+          <div className="container64">
+            <div className="heading-312">
+              <div className="conformidade-legal">Conformidade Legal</div>
             </div>
-            <div className="relative aspect-[407/342] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/chatgpt-2214.jpg"
-                alt="Sistema de controle de acesso"
-                fill
-                sizes="(min-width: 1024px) 407px, 100vw"
-                className="object-cover"
-              />
+            <div className="container65">
+              <div className="container66">
+                <CheckItem>LGPD — Proteção de Dados Garantida</CheckItem>
+              </div>
+              <CheckItem>
+                Conformidade com Padrões CONARQ <br />e e-ARQ Brasil
+              </CheckItem>
+              <CheckItem>
+                Gestão Automática de Prazos Conforme <br />
+                CONARQ
+              </CheckItem>
+              <CheckItem>
+                U Trilha de Auditoria para Órgãos de <br />
+                Controle
+              </CheckItem>
+              <CheckItem>Assinatura Digital ICP-Brasil Integrada</CheckItem>
             </div>
           </div>
-
-          <div className="flex flex-col gap-14">
-            <div>
-              <h2 className="font-display text-4xl uppercase leading-tight tracking-[0.05em] text-white sm:text-[38px]">
-                Conformidade Legal
-              </h2>
-              <div className="mt-8">
-                <CheckList items={legal} />
-              </div>
+          <div className="container67">
+            <div className="heading-313">
+              <div className="conformidade-legal">Segurança da Informação</div>
             </div>
-            <div>
-              <h2 className="font-display text-4xl uppercase leading-tight tracking-[0.05em] text-white sm:text-[38px]">
-                Segurança da Informação
-              </h2>
-              <div className="mt-8">
-                <CheckList items={security} />
-              </div>
+            <div className="container68">
+              <CheckItem>Criptografia em Repouso e em Trânsito</CheckItem>
+              <CheckItem>Controle Granular de Acesso por Perfil</CheckItem>
+              <CheckItem>Backup Redundante em Múltiplas Regiões</CheckItem>
+              <CheckItem>Registro Imutável de Todas as Operações</CheckItem>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <img
+        className="chatgpt-image-5-de-mai-de-202"
+        src="/images/chatgpt-2214.jpg"
+        alt=""
+      />
+      <img
+        className="gemini-generated-image-10zq711-icon"
+        src="/images/gemini-10zq71.jpg"
+        alt=""
+      />
+    </div>
   );
 }

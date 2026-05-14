@@ -1,139 +1,229 @@
 "use client";
 
-import { useState } from "react";
-import { ShieldCheck, Medal, Timer, Star, CheckCircle } from "@phosphor-icons/react";
-import FloatingField from "@/components/ui/FloatingField";
+import { Clock, Medal, ShieldCheck, Star } from "@phosphor-icons/react/dist/ssr";
 
-const trustBadges = [
-  { icon: ShieldCheck, label: "Conformidade LGPD" },
-  { icon: Medal, label: "Conforme CONARQ" },
-  { icon: Timer, label: "Demo em 30min" },
-  { icon: Star, label: "Suporte incluído" },
+const FIELDS: { label: string; type: string }[] = [
+  { label: "Nome completo", type: "text" },
+  { label: "Instituição / Órgão", type: "text" },
+  { label: "E-mail institucional", type: "email" },
 ];
 
 export default function CTAFormSection() {
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    institution: "",
-    email: "",
-    phone: "",
-    description: "",
-    privacy: false,
-    contact: false,
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.privacy) return;
-    setSubmitted(true);
-  };
-
   return (
-    <section id="cta" className="bg-brand py-20 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_440px] lg:items-center lg:gap-32">
-        <div>
-          <h2 className="font-display text-4xl uppercase leading-tight tracking-[0.05em] text-white sm:text-5xl lg:text-[48px]">
-            Pronto para Transformar Seu Arquivo?
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-white">
-            Agende uma demonstração gratuita e veja o eBoxAI em funcionamento com dados do seu
-            órgão.
-          </p>
-
-          <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {trustBadges.map((b) => (
-              <li key={b.label} className="flex items-center gap-3 text-white">
-                <b.icon size={30} weight="regular" className="shrink-0" />
-                <span className="text-base">{b.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-2xl bg-white p-8 sm:p-10">
-          {submitted ? (
-            <div className="flex flex-col items-center py-6 text-center">
-              <CheckCircle size={56} weight="fill" className="text-brand" />
-              <h3 className="mt-4 text-xl font-semibold text-text">Solicitação enviada!</h3>
-              <p className="mt-2 text-base text-mute-2">
-                Nossa equipe entrará em contato em até 24 horas úteis.
-              </p>
+    <div className="ctasection">
+      <div className="container100">
+        <div className="container101">
+          <div className="heading-27">
+            <div className="pronto-para-transformar">
+              Pronto para Transformar Seu Arquivo?
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <h3 className="mb-2 text-xl font-semibold text-text">Falar com um Especialista</h3>
-
-              <FloatingField
-                label="Nome completo"
-                required
-                value={form.name}
-                onChange={(v) => setForm((s) => ({ ...s, name: v }))}
-              />
-              <FloatingField
-                label="Instituição / Órgão"
-                required
-                value={form.institution}
-                onChange={(v) => setForm((s) => ({ ...s, institution: v }))}
-              />
-              <FloatingField
-                label="E-mail institucional"
-                type="email"
-                required
-                value={form.email}
-                onChange={(v) => setForm((s) => ({ ...s, email: v }))}
-              />
-              <FloatingField
-                label="Telefone / WhatsApp"
-                type="tel"
-                value={form.phone}
-                onChange={(v) => setForm((s) => ({ ...s, phone: v }))}
-              />
-              <FloatingField
-                as="textarea"
-                label="Descreva brevemente seu acervo ou desafio atual"
-                rows={3}
-                value={form.description}
-                onChange={(v) => setForm((s) => ({ ...s, description: v }))}
-              />
-
-              <label className="mt-2 flex items-start gap-3 text-xs text-mute-2">
-                <input
-                  type="checkbox"
-                  required
-                  checked={form.privacy}
-                  onChange={(e) => setForm((s) => ({ ...s, privacy: e.target.checked }))}
-                  className="mt-0.5 h-4 w-4 accent-brand"
-                />
-                <span>
-                  Li e concordo com a Política de{" "}
-                  <a href="#" className="underline">Privacidade e os Termos de Uso</a>.
-                </span>
+          </div>
+          <div className="paragraph18">
+            <div className="agende-uma-demonstrao">
+              Agende uma demonstração gratuita e veja o eBoxAI em funcionamento
+              com dados do seu órgão.
+            </div>
+          </div>
+          <div className="container102">
+            <div className="container103">
+              <div className="medal">
+                <div className="arrowright">
+                  <ShieldCheck className="vector-icon28" weight="regular" />
+                </div>
+              </div>
+              <div className="text11">
+                <div className="em-tempo-real">Conformidade LGPD</div>
+              </div>
+            </div>
+            <div className="container104">
+              <div className="medal">
+                <div className="arrowright">
+                  <Medal className="vector-icon29" weight="regular" />
+                </div>
+              </div>
+              <div className="text12">
+                <div className="em-tempo-real">Conforme CONARQ</div>
+              </div>
+            </div>
+            <div className="container105">
+              <div className="medal">
+                <div className="arrowright">
+                  <Clock className="vector-icon30" weight="regular" />
+                </div>
+              </div>
+              <div className="text13">
+                <div className="em-tempo-real">Demo em 30min</div>
+              </div>
+            </div>
+            <div className="container106">
+              <div className="medal">
+                <div className="arrowright">
+                  <Star className="vector-icon31" weight="regular" />
+                </div>
+              </div>
+              <div className="text11">
+                <div className="em-tempo-real">Suporte incluído</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container107">
+          <div className="container41">
+            <div className="falar-com-um">Falar com um Especialista</div>
+          </div>
+          <form className="form" onSubmit={(e) => e.preventDefault()}>
+            {FIELDS.map((field) => (
+              <div className="text-field" key={field.label}>
+                <div className="text-field2">
+                  <div className="state-layer">
+                    <div className="content">
+                      <div className="input-text-container">
+                        <input
+                          className="input-text"
+                          type={field.type}
+                          placeholder={field.label}
+                          style={{
+                            border: 0,
+                            outline: 0,
+                            background: "transparent",
+                            flex: 1,
+                            font: "inherit",
+                            color: "inherit",
+                          }}
+                        />
+                      </div>
+                      <div className="label-text-container">
+                        <div className="label-text">{field.label}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="text-field7">
+              <div className="text-field8">
+                <div className="state-layer">
+                  <div className="content">
+                    <div className="input-text-container">
+                      <input
+                        className="input-text"
+                        type="tel"
+                        placeholder="Telefone / WhatsApp"
+                        style={{
+                          border: 0,
+                          outline: 0,
+                          background: "transparent",
+                          flex: 1,
+                          font: "inherit",
+                          color: "inherit",
+                        }}
+                      />
+                    </div>
+                    <div className="label-text-container">
+                      <div className="label-text">Telefone / WhatsApp</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-field9">
+              <div className="text-field2">
+                <div className="state-layer">
+                  <div className="content5">
+                    <div className="input-text-container">
+                      <textarea
+                        className="input-text"
+                        rows={1}
+                        placeholder="Descreva brevemente seu acervo ou desafio atual"
+                        style={{
+                          border: 0,
+                          outline: 0,
+                          background: "transparent",
+                          flex: 1,
+                          font: "inherit",
+                          color: "inherit",
+                          resize: "none",
+                        }}
+                      />
+                    </div>
+                    <div className="label-text-container">
+                      <div className="label-text">Descrição</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="frame-parent2">
+              <label className="checkboxes-parent">
+                <div className="checkboxes">
+                  <div className="checkboxes2">
+                    <div className="state-layer6">
+                      <input
+                        type="checkbox"
+                        className="container108"
+                        style={{
+                          appearance: "none",
+                          margin: 0,
+                          cursor: "pointer",
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="li-e-concordo-container">
+                  Li e concordo com a Política de
+                  <span className="privacidade-e-os">
+                    {" "}
+                    Privacidade e os Termos de Uso
+                  </span>
+                  .
+                </div>
               </label>
-
-              <label className="flex items-start gap-3 text-xs text-mute-2">
-                <input
-                  type="checkbox"
-                  checked={form.contact}
-                  onChange={(e) => setForm((s) => ({ ...s, contact: e.target.checked }))}
-                  className="mt-0.5 h-4 w-4 accent-brand"
-                />
-                <span>
-                  Concordo em receber o contato da e-BoxAI de acordo com a Política de
-                  Privacidade.
-                </span>
+              <label className="checkboxes-parent">
+                <div className="checkboxes">
+                  <div className="checkboxes2">
+                    <div className="state-layer6">
+                      <input
+                        type="checkbox"
+                        className="container108"
+                        style={{
+                          appearance: "none",
+                          margin: 0,
+                          cursor: "pointer",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="li-e-concordo-container">
+                  Concordo em receber o contato da e-BoxAI de acordo com <br />a
+                  Política de Privacidade.
+                </div>
               </label>
-
-              <button
-                type="submit"
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-text px-6 py-4 text-base font-semibold text-white shadow-[0_2px_6px_2px_rgba(0,0,0,0.15),0_1px_2px_rgba(0,0,0,0.3)] transition-colors hover:bg-dark-2"
-              >
-                Solicitar Demonstração Gratuita
-              </button>
-            </form>
-          )}
+            </div>
+            <button
+              type="submit"
+              className="toggle-button-elevated"
+              style={{
+                border: 0,
+                padding: 0,
+                background: "transparent",
+                cursor: "pointer",
+                textAlign: "inherit",
+              }}
+            >
+              <div className="toggle-button-elevated2">
+                <div className="content6">
+                  <div className="state-layer8">
+                    <div className="label">Solicitar Demonstração Gratuita</div>
+                  </div>
+                </div>
+              </div>
+            </button>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

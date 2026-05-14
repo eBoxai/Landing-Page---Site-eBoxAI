@@ -50,8 +50,11 @@ body {
 /* Hero glass-card backdrop blur */
 .glass {
   background-color: rgba(241, 245, 249, 0.2);
-  backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  isolation: isolate;
+  will-change: backdrop-filter;
+  transform: translateZ(0);
 }
 
 @keyframes fadeIn {

@@ -1,177 +1,148 @@
 "use client";
 
-import {
-  CaretDown,
-  Scan,
-  Cpu,
-  FileMagnifyingGlass,
-  TreeStructure,
-  GlobeSimple,
-} from "@phosphor-icons/react";
-import { useStepScroll } from "@/hooks/useStepScroll";
+import { useRef } from "react";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
+import { useProcessScrollLock } from "@/hooks/useProcessScrollLock";
+import { PROCESS_STEPS } from "./data/processSteps";
+import MobileProcessCards from "./MobileProcessCards";
 
-const steps = [
-  {
-    label: "Digitalização",
-    icon: Scan,
-    title: "Digitalização de Alta Performance",
-    description:
-      "Garantimos a integridade dos dados desde o primeiro contato: cada documento passa por uma rigorosa limpeza e ordenação antes da captura. Utilizamos tecnologia de ponta para converter o físico em digital com máxima fidelidade, assegurando nitidez absoluta e acesso imediato à informação.",
-    stats: [
-      { value: "24/7", label: "MONITORAMENTO" },
-      { value: "10×", label: "MAIS RÁPIDO" },
-      { value: "100%", label: "RASTREÁVEL" },
-    ],
-  },
-  {
-    label: "Processamento Inteligente",
-    icon: Cpu,
-    title: "Processamento Inteligente com IA",
-    description:
-      "Motor de OCR multilíngue com reconhecimento de layout e semântica. Extrai texto, tabelas e metadados automaticamente, gerando dados estruturados prontos para indexação. Cada documento é processado com algoritmos de visão computacional que detectam padrões e estruturas.",
-    stats: [
-      { value: "95%+", label: "PRECISÃO OCR" },
-      { value: "Multi", label: "IDIOMAS" },
-      { value: "Auto", label: "EXTRAÇÃO" },
-    ],
-  },
-  {
-    label: "Indexação Conforme CONARQ",
-    icon: FileMagnifyingGlass,
-    title: "Indexação Conforme CONARQ",
-    description:
-      "Transformamos o caos de arquivos em um banco de dados estruturado. Cada documento recebe metadados automáticos e tags de identificação, permitindo que você localize qualquer arquivo físico ou digital em segundos através de uma busca por palavras-chave ou categorias específicas.",
-    stats: [
-      { value: "0,5s", label: "TEMPO DE BUSCA" },
-      { value: "100", label: "INDEXAÇÃO AUTO" },
-      { value: "TAGS", label: "ILIMITADAS" },
-    ],
-  },
-  {
-    label: "Classificação Hierárquica",
-    icon: TreeStructure,
-    title: "Classificação Hierárquica Automática",
-    description:
-      "IA generativa organiza automaticamente o acervo em planos de classificação hierárquica, criando estruturas baseadas no conteúdo real — fundo, subfundo, série, subsérie. Toda a estruturação é auditável, reversível e adaptável aos padrões da sua instituição.",
-    stats: [
-      { value: "IA", label: "GENERATIVA" },
-      { value: "Auto", label: "CLASSIFICAÇÃO" },
-      { value: "100%", label: "AUDITÁVEL" },
-    ],
-  },
-  {
-    label: "Disponibilidade",
-    icon: GlobeSimple,
-    title: "Disponibilidade e Acesso Total",
-    description:
-      "Acesso instantâneo por busca semântica. Localize qualquer documento por conceito, relação ou contexto — não apenas por palavras-chave. Integração com sistemas legados via API e disponibilidade 24/7 com SLA garantido.",
-    stats: [
-      { value: "API", label: "INTEGRAÇÃO" },
-      { value: "Semântica", label: "BUSCA" },
-      { value: "99,9%", label: "UPTIME" },
-    ],
-  },
+const STEP_LABEL_CLASS = [
+  "container21",
+  "container24",
+  "container27",
+  "container30",
+  "container33",
 ];
 
 export default function ProcessSection() {
-  const { currentStep, containerRef, goToStep } = useStepScroll(steps.length);
-  const step = steps[currentStep];
-  const StepIcon = step.icon;
+  const processRef = useRef<HTMLDivElement | null>(null);
+  const [activeStep, setActiveStep] = useProcessScrollLock(
+    processRef,
+    PROCESS_STEPS.length
+  );
+
+  const active = PROCESS_STEPS[activeStep];
+  const ActiveIcon = active.Icon;
 
   return (
-    <section id="process" className="bg-bg py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <header className="mx-auto max-w-4xl text-center">
-          <h2 className="font-display text-4xl uppercase leading-tight text-text sm:text-5xl lg:text-[48px]">
+    <div ref={processRef} className="container-group">
+      <div className="container11">
+        <div className="heading-22">
+          <div className="do-fsico-ao">
             Do físico ao digital. Do armazenamento ao controle total.
-          </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg text-mute-2">
-            Transformamos documentos físicos em conhecimento estruturado e pesquisável usando OCR
-            avançado e IA generativa. Um processo técnico, escalável e totalmente automatizado.
-          </p>
-        </header>
+          </div>
+        </div>
+      </div>
+      <div className="uma-plataforma-integrada2">
+        Transformamos documentos físicos em conhecimento estruturado e
+        pesquisável usando OCR avançado e IA generativa. Um processo técnico,
+        escalável e totalmente automatizado.
+      </div>
 
-        <div
-          ref={containerRef}
-          className="mt-16 grid items-start gap-12 lg:grid-cols-[280px_1fr] lg:gap-20"
-        >
-          <ol className="relative flex flex-col gap-7">
-            {steps.map((s, i) => {
-              const isActive = i === currentStep;
-              const isCompleted = i < currentStep;
-              const filled = isActive || isCompleted || i === 0;
-              return (
-                <li key={s.label} className="relative">
-                  {i < steps.length - 1 && (
-                    <span
-                      aria-hidden
-                      className={`absolute left-[17px] top-9 h-[calc(100%-12px)] w-0.5 ${
-                        isCompleted ? "bg-brand/60" : "bg-border"
-                      }`}
-                    />
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => goToStep(i)}
-                    className="relative z-10 flex w-full items-center gap-4 text-left"
-                  >
-                    <span
-                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-bold transition-all ${
-                        filled
-                          ? "bg-brand text-white shadow-[0_4px_7.7px_rgba(234,88,12,0.61)]"
-                          : "border-2 border-border bg-white text-mute-2"
-                      }`}
-                    >
-                      {i + 1}
-                    </span>
-                    <span
-                      className={`text-sm leading-tight transition-colors ${
-                        isActive
-                          ? "font-semibold text-text"
-                          : "font-medium text-mute-2"
-                      }`}
-                    >
-                      {s.label}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-            <li className="mt-6 hidden items-center gap-2 text-xs text-muted lg:flex">
-              <CaretDown size={14} className="animate-bounce-y text-muted" />
-              Scroll para explorar
-            </li>
-          </ol>
+      <MobileProcessCards
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+      />
 
-          <div
-            key={currentStep}
-            className="animate-fade-in rounded-2xl border border-brand bg-white p-8 shadow-[0_4px_6px_-4px_rgba(234,88,12,0.05),0_10px_15px_-3px_rgba(234,88,12,0.05)]"
-          >
-            <div className="flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center text-brand">
-                <StepIcon size={28} weight="regular" />
-              </span>
-              <h3 className="text-xl font-bold text-text">{step.title}</h3>
+      <div className="component-1">
+        <div className="container-container">
+          <div className="container12">
+            <div className="container13">
+              <div
+                className="container14"
+                data-completed={0 < activeStep || undefined}
+              />
+              <div
+                className="container15"
+                data-completed={1 < activeStep || undefined}
+              />
+              <div
+                className="container16"
+                data-completed={2 < activeStep || undefined}
+              />
+              <div
+                className="container17"
+                data-completed={3 < activeStep || undefined}
+              />
+              <div className="container18">
+                {PROCESS_STEPS.map((step, i) => {
+                  const isActive = i === activeStep;
+                  const isCompleted = i <= activeStep;
+                  return (
+                    <button
+                      type="button"
+                      key={step.num}
+                      className="step-row"
+                      data-active={isActive || undefined}
+                      data-completed={isCompleted || undefined}
+                      onClick={() => setActiveStep(i)}
+                      aria-label={`Ir para etapa ${step.num}: ${step.label}`}
+                      aria-current={isActive ? "step" : undefined}
+                    >
+                      <div className="step-circle">
+                        <div className="div">{step.num}</div>
+                      </div>
+                      <div className={STEP_LABEL_CLASS[i]}>
+                        <div className="step-label">{step.label}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <p className="mt-5 text-justify text-base leading-relaxed text-mute-2">
-              {step.description}
-            </p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {step.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl border border-border bg-white px-5 py-4"
-                >
-                  <div className="text-2xl font-bold text-brand">{stat.value}</div>
-                  <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.05em] text-mute-2">
-                    {stat.label}
+            <div className="container34">
+              <div className="icon-parent">
+                <CaretDown className="icon" weight="bold" />
+                <div className="text">
+                  <div className="scroll-para-explorar">
+                    Scroll para explorar
                   </div>
                 </div>
-              ))}
+              </div>
+            </div>
+          </div>
+          <div
+            className="container35"
+            key={activeStep}
+            data-process-card
+          >
+            <div className="frame-div">
+              <div className="container36">
+                <div className="container37">
+                  <div className="container38">
+                    <div className="material-symbolsscan-outline-parent">
+                      <div className="material-symbolsscan-outline">
+                        <ActiveIcon
+                          className="vector-icon4"
+                          weight="regular"
+                        />
+                      </div>
+                      <div className="container38">
+                        <b className="digitalizao-de-alta">{active.title}</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="paragraph5">
+                  <div className="ocr-avanado-com">{active.body}</div>
+                </div>
+              </div>
+              <div className="container39">
+                {active.stats.map((s, i) => (
+                  <div key={i} className="container40">
+                    <div className="container41">
+                      <b className="b">{s.value}</b>
+                    </div>
+                    <div className="container42">
+                      <div className="monitoramento">{s.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

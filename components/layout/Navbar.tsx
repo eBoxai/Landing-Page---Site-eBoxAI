@@ -1,88 +1,88 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { List, X } from "@phosphor-icons/react";
-import Logo from "@/components/ui/Logo";
+import { List, X } from "@phosphor-icons/react/dist/ssr";
+import LogoMark from "@/components/ui/LogoMark";
 
-const navLinks = [
-  { label: "Plataforma", href: "#archive" },
-  { label: "IA & Digitalização", href: "#process" },
-  { label: "Segurança", href: "#compliance" },
-  { label: "Empresas", href: "#target" },
+const NAV_LINKS: { href: string; label: string; labelClass: string }[] = [
+  { href: "#features", label: "Plataforma", labelClass: "plataforma2" },
+  { href: "#process", label: "IA & Digitalização", labelClass: "label" },
+  { href: "#compliance", label: "Segurança", labelClass: "plataforma2" },
+  { href: "#target", label: "Empresas", labelClass: "plataforma2" },
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  // Fecha menu ao apertar Escape
   useEffect(() => {
-    const ids = navLinks.map((l) => l.href.slice(1));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(`#${visible.target.id}`);
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  // Trava scroll do body quando o menu mobile está aberto
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-5 z-50 px-3 sm:px-5">
-      <div className="glass mx-auto flex max-w-[1344px] items-center justify-between rounded-2xl px-5 py-4 md:py-[23px]">
-        <a href="#top" aria-label="e-BoxAI" className="flex-shrink-0">
-          <Logo variant="dark" />
-        </a>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => {
-            const isActive = active === link.href;
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                aria-current={isActive ? "page" : undefined}
-                className={`text-xl font-semibold text-text transition-colors hover:text-brand ${
-                  isActive ? "border-b border-surface-2" : "border-b border-transparent"
-                }`}
-              >
-                {link.label}
-              </a>
-            );
-          })}
-        </nav>
-
-        <button
-          type="button"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-          className="flex h-10 w-10 items-center justify-center rounded-full text-text md:hidden"
-          onClick={() => setOpen((v) => !v)}
+    <header className={`component-3${menuOpen ? " is-open" : ""}`}>
+      <div className="container-frame">
+        <a
+          href="#top"
+          className="container121"
+          style={{ textDecoration: "none", color: "inherit" }}
         >
-          {open ? <X size={22} /> : <List size={22} />}
-        </button>
+          <div className="logo-container">
+            <LogoMark style={{ width: "100%", height: "auto", display: "block" }} />
+          </div>
+          <div className="company-name">
+            <span>e-Box</span>
+            <span className="tempo-real">AI</span>
+          </div>
+        </a>
       </div>
 
-      {open && (
-        <div className="glass mx-auto mt-2 max-w-[1344px] rounded-2xl p-3 md:hidden">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block rounded-xl px-4 py-3 text-xl font-semibold text-text hover:bg-surface"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
+      <button
+        type="button"
+        className="navbar-burger"
+        aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={menuOpen}
+        aria-controls="navbar-menu"
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        {menuOpen ? (
+          <X size={28} weight="bold" />
+        ) : (
+          <List size={28} weight="bold" />
+        )}
+      </button>
+
+      <nav
+        id="navbar-menu"
+        className={`container-parent7${menuOpen ? " is-open" : ""}`}
+      >
+        {NAV_LINKS.map((link, i) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className={i === 0 ? "container122" : "container123"}
+            style={{ textDecoration: "none", color: "inherit" }}
+            onClick={() => setMenuOpen(false)}
+          >
+            <div className={link.labelClass}>{link.label}</div>
+          </a>
+        ))}
+      </nav>
     </header>
   );
 }

@@ -1,90 +1,137 @@
-import Image from "next/image";
 import {
   ArrowRight,
   CaretDown,
-  ShieldCheck,
-  MagnifyingGlass,
   FileMagnifyingGlass,
+  MagnifyingGlass,
+  ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
 
-const pills = [
-  { icon: ShieldCheck, label: "Segurança\nde ponta a ponta" },
-  { icon: MagnifyingGlass, label: "Busca inteligente\ne rápida" },
-  { icon: FileMagnifyingGlass, label: "Rastreabilidade\ncompleta" },
-];
+const WHITE = "#f8fafc";
+const DARK = "#020617";
 
 export default function HeroSection() {
   return (
-    <section
-      id="top"
-      className="relative isolate overflow-hidden bg-bg"
-      style={{ minHeight: "min(100svh, 1024px)" }}
-    >
-      <Image
+    <div className="hero">
+      <img
+        className="chatgpt-image-5-de-mai-de-2022"
         src="/images/hero-1925.jpg"
         alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-center"
       />
-
-      <div className="relative flex min-h-[100svh] flex-col px-4 sm:px-6 lg:px-12">
-        <div className="flex flex-1 items-center pt-28 pb-8 sm:pt-32 lg:pb-12">
-          <div className="glass w-full max-w-[705px] rounded-2xl border border-white/40 p-8 sm:p-10 lg:px-[58px] lg:py-14">
-            <div className="flex flex-col items-stretch gap-6 sm:gap-8 lg:gap-[37px]">
-              <h1 className="font-display text-left text-4xl leading-[1.05] text-text sm:text-5xl lg:text-[64px]">
-                Seus documentos estão seguros…
-                <br />
-                ou você só espera que estejam?
-              </h1>
-              <p className="text-justify text-base text-text sm:text-lg lg:text-xl">
-                Gestão inteligente de documentos com segurança, rastreabilidade e inteligência
-                artificial.
-              </p>
+      <div className="hero-inner">
+        <div className="frame-parent3">
+          <div className="seus-documentos-esto-seguros-parent">
+            <div className="seus-documentos-esto">
+              Seus documentos estão seguros…
+              <br />
+              ou você só espera que estejam?
             </div>
-
-            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-[23px] lg:mt-[68px]">
-              <a
-                href="#cta"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 text-base font-semibold text-white shadow-[0_2px_6px_2px_rgba(0,0,0,0.15),0_1px_2px_rgba(0,0,0,0.3)] transition-colors hover:bg-[#c2410c] lg:text-xl"
-              >
-                <ArrowRight size={24} weight="regular" />
-                Solicitar Demonstração Gratuita
+            <div className="gesto-inteligente-de">
+              Gestão inteligente de documentos com segurança, rastreabilidade e
+              inteligência artificial.
+            </div>
+          </div>
+          <div className="toggle-button-elevated-parent">
+            <div className="container-wrapper">
+              <a href="#cta" className="toggle-button-elevated4">
+                <div className="content8">
+                  <div className="state-layer10">
+                    <div className="icon15">
+                      <div className="arrowright">
+                        <ArrowRight
+                          className="vector-icon34"
+                          weight="bold"
+                          style={{ color: WHITE }}
+                        />
+                      </div>
+                    </div>
+                    <div className="label">Solicitar Demonstração Gratuita</div>
+                  </div>
+                </div>
               </a>
-              <a
-                href="#archive"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-text bg-transparent px-6 py-4 text-base font-semibold text-text transition-colors hover:bg-text hover:text-white lg:text-xl"
-              >
-                <ArrowRight size={24} weight="regular" />
-                Saiba mais
-              </a>
+            </div>
+            <a href="#archive" className="button-outline2">
+              <div className="button-outline3">
+                <div className="content9">
+                  <div className="state-layer11">
+                    <div className="icon15">
+                      <div className="arrowright">
+                        <ArrowRight
+                          className="vector-icon34"
+                          weight="bold"
+                          style={{ color: DARK }}
+                        />
+                      </div>
+                    </div>
+                    <div className="label">Saiba mais</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="frame-parent4">
+        <div className="shieldcheck-wrapper">
+          <div className="shieldcheck5">
+            <div className="arrowright">
+              <ShieldCheck
+                className="vector-icon36"
+                weight="regular"
+                style={{ color: DARK }}
+              />
             </div>
           </div>
         </div>
-
-        <div className="flex w-full flex-wrap items-end justify-center gap-8 pb-12 sm:justify-end sm:gap-12">
-          {pills.map((p) => (
-            <div key={p.label} className="flex flex-col items-center gap-1 text-center">
-              <span
-                className="flex h-11 w-11 items-center justify-center rounded-full backdrop-blur"
-                style={{ backgroundColor: "rgba(248, 250, 252, 0.3)" }}
-              >
-                <p.icon size={22} className="text-divider" weight="regular" />
-              </span>
-              <span className="whitespace-pre-line text-xs text-body">{p.label}</span>
-            </div>
-          ))}
+        <div className="seus-documentos-esto">
+          Segurança
+          <br />
+          de ponta a ponta
         </div>
       </div>
-
-      <a
-        href="#problems"
-        aria-label="Descer"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-text/70 hover:text-brand"
-      >
-        <CaretDown size={48} weight="regular" className="animate-bounce-y" />
-      </a>
-    </section>
+      <div className="frame-parent5">
+        <div className="shieldcheck-wrapper">
+          <div className="shieldcheck5">
+            <div className="arrowright">
+              <MagnifyingGlass
+                className="vector-icon37"
+                weight="regular"
+                style={{ color: DARK }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="seus-documentos-esto">
+          Busca inteligente
+          <br />e rápida
+        </div>
+      </div>
+      <div className="frame-parent6">
+        <div className="shieldcheck-wrapper">
+          <div className="shieldcheck5">
+            <div className="arrowright">
+              <FileMagnifyingGlass
+                className="vector-icon38"
+                weight="regular"
+                style={{ color: DARK }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="seus-documentos-esto">
+          Rastreabilidade
+          <br />
+          completa
+        </div>
+      </div>
+      <div className="caretdown">
+        <div className="arrowright">
+          <CaretDown
+            className="vector-icon39"
+            weight="bold"
+            style={{ color: DARK }}
+          />
+        </div>
+      </div>
+    </div>
   );
 }

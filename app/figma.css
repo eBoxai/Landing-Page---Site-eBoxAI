@@ -1,6 +1,8 @@
 .landing-page {
   	width: 100%;
-  	height: 9336px;
+  	/* CTA (último bloco absoluto) começa em 8086px com min-height clamp(640px, 56.67vw, 816px).
+  	   Acompanha o fim do CTA pra evitar gap branco antes do Footer (que ficou fora do container). */
+  	height: calc(8086px + clamp(640px, 56.67vw, 816px));
   	position: relative;
   	background-color: #fff;
   	overflow: hidden;
@@ -322,6 +324,27 @@
   	height: 36px;
   	position: relative;
   	color: #64748b;
+  	/* É <button> agora — reseta defaults pra ficar visualmente idêntico ao div */
+  	background: transparent;
+  	border: 0;
+  	padding: 0;
+  	font: inherit;
+  	text-align: left;
+  	cursor: pointer;
+  	width: 100%;
+  	display: block;
+  	-webkit-tap-highlight-color: transparent;
+  	transition: opacity 180ms ease;
+}
+.step-row:hover .step-circle {
+  	box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.18);
+}
+.step-row:focus-visible {
+  	outline: none;
+}
+.step-row:focus-visible .step-circle {
+  	outline: 2px solid #ea580c;
+  	outline-offset: 3px;
 }
 .step-circle {
   	position: absolute;
@@ -680,7 +703,12 @@
   	font-size: clamp(28px, 3.33vw, 48px);
   	line-height: 1.1;
   	text-align: center;
-  	color: #020617;
+  	color: #f8fafc !important;
+}
+/* Garante que o span sem classe dentro do heading herde o branco
+   (alguns browsers/Tailwind preflight resetam color em spans). */
+.seu-arquivo-fsico > span:not(.tempo-real) {
+  	color: inherit;
 }
 .container50 {
   	position: absolute;
@@ -839,9 +867,8 @@
   	font-family: 'League Gothic';
 }
 .em-tempo-real {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
+  	position: relative;
+  	white-space: nowrap;
   	flex-shrink: 0;
 }
 .container54 {
@@ -1164,6 +1191,14 @@
   	overflow: visible;
   	color: #0f172a;
 }
+/* Palco centralizado: posições absolutas ficam relativas a este box de até 1440px. */
+.container-stage3 {
+  	position: relative;
+  	width: 100%;
+  	max-width: 1440px;
+  	min-height: clamp(800px, 76.18vw, 1097px);
+  	margin: 0 auto;
+}
 .container69 {
   	position: absolute;
   	top: clamp(40px, 4.51vw, 65px);
@@ -1246,9 +1281,9 @@
 }
 .prefeituras {
   	position: relative;
-  	line-height: 1.4;
+  	/* Heading 3 card: Inter Semi Bold 20px line-height 30px (1.5) → 1.39vw */
+  	line-height: 1.5;
   	font-weight: 600;
-  	/* Heading 3 card: Inter Semi Bold 20px → 1.39vw, never below 16px */
   	font-family: Inter, system-ui, sans-serif;
   	font-size: clamp(16px, 1.39vw, 20px);
   	color: #f8fafc;
@@ -1273,11 +1308,11 @@
   	left: auto;
   	display: block;
   	width: 100%;
-  	/* Body M: Inter 16px → 1.11vw, never below 14px */
+  	/* Body M: Inter 16px → 1.11vw, never below 14px, leading-normal */
   	font-family: Inter, system-ui, sans-serif;
   	font-weight: 400;
   	font-size: clamp(14px, 1.11vw, 16px);
-  	line-height: 1.45;
+  	line-height: 1.3;
   	color: #f8fafc;
 }
 .gemini-generated-image-79qp027-icon {
@@ -1381,6 +1416,48 @@
   	/* Padding 20px → 1.39vw, gap 12px → 0.83vw */
   	padding: clamp(12px, 1.39vw, 20px);
   	gap: clamp(8px, 0.83vw, 12px);
+  	/* É <button> agora — reset pra ficar igual ao div */
+  	background: transparent;
+  	border: 0;
+  	cursor: pointer;
+  	width: 100%;
+  	font: inherit;
+  	color: inherit;
+  	text-align: left;
+  	-webkit-tap-highlight-color: transparent;
+}
+.container77:focus-visible {
+  	outline: 2px solid #ea580c;
+  	outline-offset: -2px;
+  	border-radius: 12px;
+}
+/* Quando card está aberto: cresce em altura, mostra body abaixo */
+.container76[data-open],
+.container79[data-open],
+.container82[data-open],
+.container85[data-open],
+.container88[data-open],
+.container91[data-open],
+.container94[data-open],
+.container97[data-open] {
+  	height: auto;
+  	overflow: visible;
+  	justify-content: flex-start;
+}
+.accordion-body {
+  	width: 100%;
+  	box-sizing: border-box;
+  	padding: 0 clamp(16px, 1.39vw, 20px) clamp(14px, 1.39vw, 20px);
+  	font-family: Inter, system-ui, sans-serif;
+  	font-weight: 400;
+  	font-size: clamp(13px, 0.97vw, 14px);
+  	line-height: 1.5;
+  	color: #64748b;
+  	animation: accordionFadeIn 220ms ease-out;
+}
+@keyframes accordionFadeIn {
+  	from { opacity: 0; transform: translateY(-4px); }
+  	to   { opacity: 1; transform: translateY(0); }
 }
 .container78 {
   	align-self: stretch;
@@ -1633,6 +1710,7 @@
   	top: -1.33px;
   	left: 4.34px;
   	flex-shrink: 0;
+  	color: #f8fafc;
 }
 .uma-plataforma-integrada5 {
   	position: absolute;
@@ -1642,6 +1720,7 @@
   	display: inline-block;
   	width: 510px;
   	flex-shrink: 0;
+  	color: #f8fafc;
 }
 .uma-plataforma-integrada-container {
   	position: absolute;
@@ -1651,6 +1730,7 @@
   	display: inline-block;
   	width: 510px;
   	flex-shrink: 0;
+  	color: #f8fafc;
 }
 .blank-line {
   	margin: 0;
@@ -1659,7 +1739,11 @@
   	margin: 0;
   	font-family: inherit;
   	font-size: inherit;
-  	padding-left: 27px;
+  	padding-left: 0;
+  	list-style: none;
+}
+.digitalizao-de-alta-performa li::marker {
+  	content: "";
 }
 .processamento-com-ocr {
   	margin-bottom: 0px;
@@ -1713,13 +1797,13 @@
   	top: 0;
   	left: 0;
   	width: 100%;
-  	min-height: clamp(56px, 6.39vw, 92px);
   	flex-shrink: 0;
   	font-family: 'League Gothic';
 }
 .pronto-para-transformar {
   	position: relative;
   	letter-spacing: 0.05em;
+  	white-space: nowrap;
   	/* H2: League Gothic 38px → 2.64vw */
   	font-family: 'League Gothic', system-ui, sans-serif;
   	font-weight: 400;
@@ -1740,11 +1824,11 @@
   	position: relative;
   	display: inline-block;
   	width: 100%;
-  	/* Body L: Inter 20px → 1.39vw */
+  	/* Body L: Inter 20px → 1.39vw, line-height 1.3 (≈ "normal" do Figma) */
   	font-family: Inter, system-ui, sans-serif;
   	font-weight: 400;
   	font-size: clamp(14px, 1.39vw, 20px);
-  	line-height: 1.5;
+  	line-height: 1.3;
   	color: #fff;
 }
 .container102 {
@@ -1753,9 +1837,10 @@
   	left: 0;
   	width: 100%;
   	max-width: 444px;
-  	display: flex;
-  	flex-wrap: wrap;
-  	gap: clamp(8px, 1.11vw, 16px) clamp(16px, 1.74vw, 25px);
+  	/* Grid 2 colunas em desktop, 1 coluna em mobile (auto-fit minmax) */
+  	display: grid;
+  	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  	gap: clamp(12px, 1.11vw, 16px);
   	flex-shrink: 0;
   	/* Body M: Inter 16px → 1.11vw */
   	font-family: Inter, system-ui, sans-serif;
@@ -1764,14 +1849,14 @@
   	line-height: 1.3;
 }
 .container103 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	width: 191.5px;
+  	position: relative;
+  	width: auto;
+  	min-width: 0;
   	height: 21px;
   	display: flex;
   	align-items: center;
   	gap: 8px;
+  	flex-shrink: 0;
 }
 .vector-icon28 {
   	position: absolute;
@@ -1787,19 +1872,19 @@
 }
 .text11 {
   	height: 21px;
-  	width: 107.9px;
+  	width: auto;
   	position: relative;
   	flex-shrink: 0;
 }
 .container104 {
-  	position: absolute;
-  	top: 0px;
-  	left: 207.5px;
-  	width: 191.5px;
+  	position: relative;
+  	width: auto;
+  	min-width: 0;
   	height: 21px;
   	display: flex;
   	align-items: center;
   	gap: 8px;
+  	flex-shrink: 0;
 }
 .medal {
   	height: 30px;
@@ -1821,19 +1906,19 @@
 }
 .text12 {
   	height: 21px;
-  	width: 60.9px;
+  	width: auto;
   	position: relative;
   	flex-shrink: 0;
 }
 .container105 {
-  	position: absolute;
-  	top: 37px;
-  	left: 0px;
-  	width: 191.5px;
+  	position: relative;
+  	width: auto;
+  	min-width: 0;
   	height: 21px;
   	display: flex;
   	align-items: center;
   	gap: 8px;
+  	flex-shrink: 0;
 }
 .vector-icon30 {
   	position: absolute;
@@ -1849,19 +1934,19 @@
 }
 .text13 {
   	height: 21px;
-  	width: 108.6px;
+  	width: auto;
   	position: relative;
   	flex-shrink: 0;
 }
 .container106 {
-  	position: absolute;
-  	top: 37px;
-  	left: 207.5px;
-  	width: 191.5px;
+  	position: relative;
+  	width: auto;
+  	min-width: 0;
   	height: 21px;
   	display: flex;
   	align-items: center;
   	gap: 8px;
+  	flex-shrink: 0;
 }
 .vector-icon31 {
   	position: absolute;
@@ -1891,9 +1976,9 @@
 }
 .falar-com-um {
   	position: relative;
-  	line-height: 1.4;
+  	/* Form heading: Inter Semi Bold 20px line-height 30px (1.5) → 1.39vw */
+  	line-height: 1.5;
   	font-weight: 600;
-  	/* Form heading: Inter Semi Bold 20px → 1.39vw */
   	font-family: Inter, system-ui, sans-serif;
   	font-size: clamp(16px, 1.39vw, 20px);
   	color: #0f172a;
@@ -2068,7 +2153,8 @@
   	font-family: Inter;
 }
 .toggle-button-elevated2 {
-  	width: 360px;
+  	width: 100%;
+  	max-width: 360px;
   	display: flex;
   	align-items: center;
   	justify-content: center;
@@ -2099,17 +2185,50 @@
   	line-height: 1.2;
 }
 .footer {
-  	position: absolute;
-  	top: 8902px;
-  	left: 0px;
-  	width: 100vw;
+  	position: relative;
+  	width: 100%;
+  	background-color: #0f172a;
+  	color: #f8fafc;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: clamp(32px, 4.44vw, 64px) 0 clamp(20px, 1.67vw, 24px);
+  	box-sizing: border-box;
+  	text-align: left;
+  	font-size: 16px;
+}
+/* Defensivo: zera qualquer bullet/marker dentro do footer (caso algum <ul>/<li>
+   herde defaults do browser ou alguma regra global insira ::marker). */
+.footer ul,
+.footer ol,
+.footer li,
+.footer .list,
+.footer .list2,
+.footer .list4,
+.footer .list-item,
+.footer .list-item10,
+.footer .list-item13,
+.footer .list-item14,
+.footer .list-item15 {
+  	list-style: none;
+}
+.footer ::marker,
+.footer li::marker,
+.footer .list-item::marker {
+  	content: "";
+}
+.footer .list-item::before,
+.footer .list-item10::before,
+.footer .list-item13::before,
+.footer .list-item14::before,
+.footer .list-item15::before {
+  	display: none;
+  	content: none;
 }
 .container110 {
   	align-self: stretch;
-  	min-height: clamp(420px, 24.31vw, 350px);
   	display: flex;
-  	flex-direction: row;
-  	flex-wrap: wrap;
+  	flex-direction: column;
   	align-items: flex-start;
   	padding: 0px clamp(16px, 1.67vw, 24px);
   	box-sizing: border-box;
@@ -2274,6 +2393,7 @@
   	line-height: 1.5;
   	/* Badge: Inter 11px → 0.76vw */
   	font-size: clamp(10px, 0.76vw, 11px);
+  	color: #f8fafc;
 }
 .container116 {
   	position: relative;
@@ -2345,6 +2465,7 @@
   	font-family: Inter, system-ui, sans-serif;
   	font-weight: 400;
   	font-size: clamp(10px, 0.83vw, 12px);
+  	color: #f8fafc;
 }
 .list-item10 {
   	align-self: stretch;
@@ -2353,7 +2474,6 @@
   	position: relative;
   	flex-shrink: 0;
   	color: #fff;
-  	margin-top: clamp(8px, 1.11vw, 16px);
 }
 .conformidade {
   	position: relative;
@@ -2363,7 +2483,7 @@
   	/* Heading 4: Inter Semi Bold 16px → 1.11vw */
   	font-family: Inter, system-ui, sans-serif;
   	font-size: clamp(14px, 1.11vw, 16px);
-  	color: #f8fafc;
+  	color: #ffffff;
 }
 .container-parent6 {
   	position: relative;
@@ -2466,8 +2586,7 @@
   	line-height: 1.4;
 }
 .button-outline {
-  	min-height: 40px;
-  	height: auto;
+  	height: 48px;
   	display: inline-flex;
   	align-items: center;
   	justify-content: center;
@@ -2486,8 +2605,16 @@
   	display: flex;
   	align-items: center;
   	justify-content: center;
-  	padding: 8px clamp(14px, 1.25vw, 18px);
+  	padding: 6px 12px;
   	/* Button M: Inter Semi Bold 16px → 1.11vw */
+  	font-family: Inter, system-ui, sans-serif;
+  	font-weight: 600;
+  	font-size: clamp(13px, 1.11vw, 16px);
+  	line-height: 1.2;
+  	color: #f8fafc;
+}
+.button-outline .label {
+  	/* Sobrescreve o .label global (clamp 14-20px) pra bater com Button M do Figma (16px) */
   	font-family: Inter, system-ui, sans-serif;
   	font-weight: 600;
   	font-size: clamp(13px, 1.11vw, 16px);
@@ -2498,9 +2625,12 @@
   	align-self: stretch;
   	border-top: 0.7px solid #334155;
   	box-sizing: border-box;
-  	padding: clamp(20px, 2.27vw, 32.7px) clamp(16px, 1.67vw, 24px) clamp(20px, 1.67vw, 24px);
+  	padding: clamp(20px, 2.27vw, 32.7px) 0 0;
   	color: #64748b;
   	margin-top: 0;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
   	text-align: center;
 }
 .container120 {
@@ -2559,9 +2689,13 @@
   	flex-shrink: 0;
   	color: #020617;
   	font-family: 'League Gothic';
-  	backdrop-filter: blur(18px);
-  	-webkit-backdrop-filter: blur(18px);
   	background: rgba(241, 245, 249, 0.2);
+  	-webkit-backdrop-filter: blur(18px) saturate(140%);
+  	backdrop-filter: blur(18px) saturate(140%);
+  	/* Força stacking context isolado + camada GPU pra Chrome/Firefox renderizarem o blur. */
+  	isolation: isolate;
+  	will-change: backdrop-filter;
+  	transform: translateZ(0);
 }
 .frame-parent3 {
   	align-self: stretch;
@@ -2812,10 +2946,13 @@
   	position: fixed;
   	top: clamp(12px, 1.46vw, 21px);          /* 21/14.4 ≈ 1.46vw */
   	left: 50%;
-  	transform: translateX(-50%);
+  	/* translateX existing + translateZ hint pra ativar camada GPU (Chrome/Firefox blur) */
+  	transform: translateX(-50%) translateZ(0);
   	z-index: 100;
-  	backdrop-filter: blur(18px);
-  	-webkit-backdrop-filter: blur(18px);
+  	-webkit-backdrop-filter: blur(18px) saturate(140%);
+  	backdrop-filter: blur(18px) saturate(140%);
+  	isolation: isolate;
+  	will-change: backdrop-filter;
   	border-radius: 16px;
   	background: rgba(241, 245, 249, 0.2);
   	/* Largura responsiva: 1344px Figma, 32px de margem total mín. */
@@ -2825,7 +2962,8 @@
   	display: flex;
   	align-items: center;
   	justify-content: space-between;
-  	padding: clamp(12px, 1.6vw, 23px) clamp(16px, 4vw, 60px);
+  	/* Figma: pl-20 pr-323 (assimétrico). Espaço grande à direita empurra o menu pro meio-direito. */
+  	padding: clamp(12px, 1.6vw, 23px) clamp(40px, 22.43vw, 323px) clamp(12px, 1.6vw, 23px) clamp(16px, 1.39vw, 20px);
   	box-sizing: border-box;
   	gap: clamp(12px, 1.6vw, 24px);
   	text-align: left;
@@ -2893,6 +3031,8 @@
   	position: relative;
   	display: inline-block;
   	flex-shrink: 0;
+  	/* Figma w-[116.333px] → clamp responsivo. Largura fixa permite o text-align: center funcionar. */
+  	width: clamp(80px, 8.08vw, 116.333px);
   	/* Menu items 20px → 1.39vw (mesma escala) */
   	font-family: Inter, system-ui, sans-serif;
   	font-weight: 600;
@@ -2901,12 +3041,16 @@
   	text-align: center;
   	color: #020617;
   	white-space: nowrap;
-  	white-space: nowrap;
 }
 .container123 {
   	height: clamp(22px, 2.15vw, 31px);
   	display: flex;
   	align-items: center;
+  	justify-content: center;
+}
+/* "IA & Digitalização" usa .label dentro do navbar — força centro pra bater com Figma. */
+.container-parent7 .label {
+  	text-align: center;
 }
 .fab {
   	position: fixed;
@@ -2993,19 +3137,93 @@
   	opacity: 0;
 }
 
-/* Mobile-only process cards — escondidos por padrão; só aparecem sem scroll-lock */
+/* Mobile-only process wrap (tabs + cards) — escondido por padrão; só aparece sem scroll-lock */
+.mobile-process-wrap { display: none; }
 .mobile-process-cards { display: none; }
 
-/* Faixa sem scroll-lock (<900px): esconde stepper interativo e mostra cards empilhados */
+/* Faixa sem scroll-lock (<900px): esconde stepper interativo, mostra tabs numerados + cards */
 @media (max-width: 899px) {
   .component-1 { display: none !important; }
+  .mobile-process-wrap {
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 720px;
+    margin: 8px auto 0;
+  }
+  /* Tabs numerados no topo lado a lado */
+  .mobile-process-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  /* Cada tab é um wrapper coluna: círculo numerado + label abaixo (Figma 152:9527) */
+  .mobile-process-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-process-tab-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.265px solid #cbd5e1;
+    background: transparent;
+    color: #64748b;
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  }
+  .mobile-process-tab[data-active] .mobile-process-tab-circle {
+    background: #ea580c;
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0px 4px 6px rgba(234, 88, 12, 0.4);
+  }
+  .mobile-process-tab-text {
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #64748b;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    transition: color 180ms ease, font-weight 180ms ease;
+  }
+  .mobile-process-tab[data-active] .mobile-process-tab-text {
+    color: #020617;
+    font-weight: 600;
+  }
+  .mobile-process-tab:focus-visible {
+    outline: none;
+  }
+  .mobile-process-tab:focus-visible .mobile-process-tab-circle {
+    outline: 2px solid #ea580c;
+    outline-offset: 3px;
+  }
   .mobile-process-cards {
     display: flex !important;
     flex-direction: column;
     gap: 16px;
     width: 100%;
-    max-width: 720px;
-    margin: 8px auto 0;
   }
   .mobile-process-card {
     background: #fff;
@@ -3181,25 +3399,32 @@
     overflow: visible;
   }
 
-  /* Ordem visual: Hero primeiro, footer último */
-  .hero            { order: 1; }
-  .container-parent  { order: 2; }
-  .container-group   { order: 3; }
-  .container-parent2 { order: 4; }
-  .dashboardpreview  { order: 5; }
-  .container-parent3 { order: 6; }
-  .dashboardpreview2 { order: 7; }
-  .dashboardpreview3 { order: 8; }
-  .ctasection        { order: 9; }
+  /* Ordem visual mobile = ordem do desktop por top:absolute do Figma:
+     Hero(0) → Problems(1024) → Accordion(1841) → Process(2839) →
+     Intelligence(3699) → Features(4723) → Compliance(5965) →
+     Target(6989) → CTA(8086) */
+  .hero              { order: 1; }
+  .container-parent  { order: 2; } /* ProblemsSection */
+  .dashboardpreview2 { order: 3; } /* AccordionSection */
+  .container-group   { order: 4; } /* ProcessSection */
+  .dashboardpreview3 { order: 5; } /* IntelligenceSection */
+  .container-parent2 { order: 6; } /* FeaturesSection */
+  .dashboardpreview  { order: 7; } /* ComplianceSection */
+  .container-parent3 { order: 8; } /* TargetSection */
+  .ctasection        { order: 9; } /* CTAFormSection */
 
   /* ===== HERO ===== */
   .hero {
     padding: 96px 16px 48px;
     background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
+    /* Grid 3 colunas: card ocupa linha inteira, 3 pills ficam lado a lado */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px 8px;
+  }
+  .hero-inner {
+    grid-column: 1 / -1;
   }
   .chatgpt-image-5-de-mai-de-2022 {
     position: absolute;
@@ -3220,20 +3445,24 @@
     z-index: 1;
   }
   .frame-parent3 {
-    gap: 24px;
+    /* Figma mobile: gap card-buttons ~20px */
+    gap: 20px;
   }
   .seus-documentos-esto-seguros-parent {
+    /* Figma mobile: gap heading↔paragraph 16px */
     gap: 16px;
   }
   .seus-documentos-esto {
-    font-size: 30px;
+    /* Figma H1 mobile: League Gothic 28px line-height 30.8px (1.1) */
+    font-size: 28px;
     line-height: 1.1;
-    text-align: center;
+    text-align: left;
   }
   .gesto-inteligente-de {
-    font-size: 15px;
+    /* Figma body mobile: Inter 16px line-height 24px (1.5) */
+    font-size: 16px;
     line-height: 1.5;
-    text-align: center;
+    text-align: left;
   }
   .toggle-button-elevated-parent {
     flex-direction: column;
@@ -3244,6 +3473,7 @@
   .toggle-button-elevated-parent > .container-wrapper,
   .toggle-button-elevated4,
   .button-outline2,
+  .button-outline3,
   .toggle-button-elevated2 {
     width: 100%;
     max-width: none;
@@ -3251,12 +3481,23 @@
   }
   .content8, .content9 {
     width: 100%;
+    box-sizing: border-box;
+  }
+  .content9 {
+    /* Figma: border 1.265px no botão outline */
+    border-width: 1.265px;
   }
   .state-layer10, .state-layer11 {
     width: 100%;
-    padding: 14px 20px;
+    /* Figma: ~12px vertical, text Inter 14px Semi Bold leading 21px → h ≈ 45px */
+    padding: 12px 20px;
+    font-size: 14px;
   }
-  /* Hero pills viram linha horizontal abaixo do card */
+  /* Figma mobile não mostra ícone nos botões — só o label */
+  .toggle-button-elevated-parent .icon15 {
+    display: none;
+  }
+  /* Hero pills viram linha horizontal abaixo do card — cada pill ocupa 1 coluna do grid 3-col */
   .frame-parent4,
   .frame-parent5,
   .frame-parent6 {
@@ -3264,7 +3505,6 @@
     top: auto !important;
     left: auto !important;
     width: auto !important;
-    flex: 1 1 0;
     min-width: 0;
     z-index: 1;
   }
@@ -3279,10 +3519,14 @@
     gap: 8px;
     padding: 12px 8px;
     background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+    isolation: isolate;
+    will-change: backdrop-filter;
+    transform: translateZ(0);
     border-radius: 14px;
-    width: calc((100% - 16px) / 3) !important;
+    /* Grid pai define a largura: cada pill ocupa 1 coluna */
+    width: auto !important;
   }
   /* Wrapper visual: usa display contents trick — em vez disso, simplifica empilhando pills */
   .caretdown { display: none; }
@@ -3647,7 +3891,8 @@
 
   /* ===== COMPLIANCE (dark) ===== */
   .dashboardpreview {
-    padding: 56px 20px;
+    /* Margem lateral mais enxuta (Figma usa container fixo 332 centrado) */
+    padding: 56px 16px;
     background-color: #0f172a;
   }
   .container62 {
@@ -3655,35 +3900,47 @@
     top: auto;
     left: auto;
     width: 100%;
-    max-width: none;
+    /* Cap em ~360px (Figma 332 + 28 padding interno opcional), centralizado */
+    max-width: 360px;
+    margin: 0 auto;
     padding: 0;
   }
   .container63 {
-    gap: 32px;
+    /* Gap entre os 2 grupos (Conformidade Legal ↔ Segurança da Informação): Figma 96px */
+    gap: clamp(48px, 12vw, 96px);
     width: 100%;
   }
   .container64, .container67 {
     width: 100%;
     max-width: none;
-    gap: 16px;
+    /* Gap heading ↔ lista dentro de cada grupo: Figma 32px */
+    gap: 24px;
   }
   .heading-312, .heading-313 {
     min-height: 0;
   }
   .conformidade-legal {
-    font-size: 24px;
-    line-height: 1.15;
+    /* H2 League Gothic mobile (Figma 38px, escala 32px no mobile) */
+    font-size: 32px;
+    line-height: 1.1;
   }
   .container65, .container68 {
     width: 100%;
     max-width: none;
-    font-size: 14px;
+    /* Body L Inter mobile (Figma 20px, escala 16px) */
+    font-size: 16px;
+    /* Gap entre items: Figma 16 */
+    gap: 16px;
   }
   .lgpd-proteo {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
   }
   .lgpd-proteo br { display: none; }
+  /* Text wrapper com padding interno (Figma p-[10px]) */
+  .text-wrapper {
+    padding: 8px 10px;
+  }
   .chatgpt-image-5-de-mai-de-202,
   .gemini-generated-image-10zq711-icon {
     display: none;
@@ -3804,7 +4061,7 @@
     line-height: 1.5;
   }
   .digitalizao-de-alta-performa {
-    padding-left: 22px;
+    padding-left: 0;
   }
   .gemini-generated-image-lv1jszl-icon {
     display: none;
@@ -3965,5 +4222,92 @@
   .solues-para-o,
   .pronto-para-transformar {
     font-size: 24px !important;
+  }
+}
+
+/* =========================================================
+   NAVBAR HAMBURGER MENU (mobile)
+   ========================================================= */
+
+/* Hamburger oculto no desktop por padrão */
+.navbar-burger {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* Hamburger visível */
+  .navbar-burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #0f172a;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .navbar-burger:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  /* Navbar precisa permitir filho absoluto saindo do bounding quando menu aberto */
+  .component-3 {
+    overflow: visible !important;
+  }
+
+  /* Menu escondido por padrão (override de qualquer regra anterior em mobile) */
+  .container-parent7 {
+    display: none !important;
+  }
+
+  /* Quando aberto: menu como drawer absoluto abaixo da navbar */
+  .container-parent7.is-open {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    width: auto;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(248, 250, 252, 0.95);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    isolation: isolate;
+    z-index: 101;
+  }
+
+  .container-parent7.is-open .container122,
+  .container-parent7.is-open .container123 {
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+  .container-parent7.is-open .container122:hover,
+  .container-parent7.is-open .container123:hover,
+  .container-parent7.is-open .container122:active,
+  .container-parent7.is-open .container123:active {
+    background: rgba(15, 23, 42, 0.06);
+  }
+
+  .container-parent7.is-open .plataforma2,
+  .container-parent7.is-open .label {
+    width: auto;
+    text-align: left;
+    font-size: 16px;
   }
 }
