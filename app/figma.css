@@ -2992,3 +2992,978 @@
 .feature-card:hover > * {
   	opacity: 0;
 }
+
+/* Mobile-only process cards — escondidos por padrão; só aparecem sem scroll-lock */
+.mobile-process-cards { display: none; }
+
+/* Faixa sem scroll-lock (<900px): esconde stepper interativo e mostra cards empilhados */
+@media (max-width: 899px) {
+  .component-1 { display: none !important; }
+  .mobile-process-cards {
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 720px;
+    margin: 8px auto 0;
+  }
+  .mobile-process-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 0.7px solid #ea580c;
+    box-shadow: 0px 10px 15px -3px rgba(234, 88, 12, 0.05),
+                0px 4px 6px -4px rgba(234, 88, 12, 0.05);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mobile-process-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .mobile-process-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ea580c;
+    color: #fff;
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 7.7px rgba(234, 88, 12, 0.5);
+  }
+  .mobile-process-icon {
+    width: 26px;
+    height: 26px;
+    color: #ea580c;
+    flex-shrink: 0;
+  }
+  .mobile-process-title {
+    flex: 1 1 100%;
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.25;
+    color: #020617;
+  }
+  .mobile-process-body {
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #64748b;
+    margin: 0;
+  }
+  .mobile-process-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .mobile-process-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 14px 14px 12px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 0.7px solid #cbd5e1;
+  }
+  .mobile-process-stat-value {
+    font-family: 'League Gothic', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.1;
+    color: #ea580c;
+  }
+  .mobile-process-stat-label {
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+}
+
+/* ============================================================
+   TABLET (≤1023px) — ajustes de transição entre desktop e mobile
+   ============================================================ */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .container-container {
+    gap: clamp(32px, 6vw, 80px);
+  }
+  .container35 {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    padding: 24px;
+  }
+  .container39 {
+    gap: clamp(16px, 4vw, 48px);
+    flex-wrap: wrap;
+  }
+  .container40 {
+    width: clamp(120px, 22vw, 160px);
+  }
+  /* Hero pills horizontais ficam centralizados */
+  .frame-parent4, .frame-parent5, .frame-parent6 {
+    top: clamp(620px, 80vw, 880px);
+  }
+  /* Feature cards 3-col desktop → 2-col tablet */
+  .container50, .container52, .container54,
+  .container56, .container58, .container60 {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    width: 100%;
+    height: auto;
+    min-height: 360px;
+  }
+  .container-parent2 {
+    height: auto;
+    min-height: 0;
+    padding: clamp(40px, 6vw, 65px) clamp(16px, 4vw, 48px) clamp(40px, 6vw, 80px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2.2vw, 24px);
+  }
+  .container49 {
+    position: relative;
+    top: auto;
+    left: auto;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 0 auto clamp(16px, 3vw, 32px);
+  }
+}
+
+/* ============================================================
+   MOBILE (≤767px) — single-column responsivo do Figma mobile
+   ============================================================ */
+@media (max-width: 767px) {
+  /* ===== Landing-page: flex column, sem altura fixa ===== */
+  .landing-page {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  /* ===== Reset todas as seções absolutas ===== */
+  .hero,
+  .container-parent,
+  .container-group,
+  .container-parent2,
+  .dashboardpreview,
+  .container-parent3,
+  .dashboardpreview2,
+  .dashboardpreview3,
+  .ctasection {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible;
+  }
+
+  /* Ordem visual: Hero primeiro, footer último */
+  .hero            { order: 1; }
+  .container-parent  { order: 2; }
+  .container-group   { order: 3; }
+  .container-parent2 { order: 4; }
+  .dashboardpreview  { order: 5; }
+  .container-parent3 { order: 6; }
+  .dashboardpreview2 { order: 7; }
+  .dashboardpreview3 { order: 8; }
+  .ctasection        { order: 9; }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 96px 16px 48px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .chatgpt-image-5-de-mai-de-2022 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-position: 60% 50%;
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: none;
+    padding: 24px 20px;
+    z-index: 1;
+  }
+  .frame-parent3 {
+    gap: 24px;
+  }
+  .seus-documentos-esto-seguros-parent {
+    gap: 16px;
+  }
+  .seus-documentos-esto {
+    font-size: 30px;
+    line-height: 1.1;
+    text-align: center;
+  }
+  .gesto-inteligente-de {
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .toggle-button-elevated-parent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+  .toggle-button-elevated-parent > .container-wrapper,
+  .toggle-button-elevated4,
+  .button-outline2,
+  .toggle-button-elevated2 {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+  .content8, .content9 {
+    width: 100%;
+  }
+  .state-layer10, .state-layer11 {
+    width: 100%;
+    padding: 14px 20px;
+  }
+  /* Hero pills viram linha horizontal abaixo do card */
+  .frame-parent4,
+  .frame-parent5,
+  .frame-parent6 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    flex: 1 1 0;
+    min-width: 0;
+    z-index: 1;
+  }
+  /* Container compartilhado dos pills via pseudo-grid — agrupa via flex */
+  .hero > .frame-parent4 { order: 2; }
+  .hero > .frame-parent5 { order: 3; }
+  .hero > .frame-parent6 { order: 4; }
+  .frame-parent4, .frame-parent5, .frame-parent6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 14px;
+    width: calc((100% - 16px) / 3) !important;
+  }
+  /* Wrapper visual: usa display contents trick — em vez disso, simplifica empilhando pills */
+  .caretdown { display: none; }
+  /* Texto dentro dos pills herda do override existente .seus-documentos-esto */
+  .frame-parent4 .seus-documentos-esto,
+  .frame-parent5 .seus-documentos-esto,
+  .frame-parent6 .seus-documentos-esto {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ===== PROBLEMS ===== */
+  .container-parent {
+    padding: 56px 16px;
+    background-color: #f8fafc;
+  }
+  .container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .heading-2 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+  }
+  .os-desafios-do {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 30px;
+    line-height: 1.1;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+  .uma-plataforma-integrada {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .container2 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    gap: 12px;
+  }
+  .container3 {
+    width: 100%;
+    height: auto;
+    min-height: 95px;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .gemini-generated-image-122dul1-icon {
+    display: none;
+  }
+  .heading-3 {
+    height: auto;
+  }
+  .documentos-extraviados {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 16px;
+    line-height: 1.3;
+    display: block;
+  }
+  .paragraph, .paragraph2 {
+    height: auto;
+    padding: 0;
+  }
+  .coleta-transporte-e {
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  /* ===== PROCESS ===== */
+  .container-group {
+    padding: 56px 16px 40px;
+    gap: 16px;
+  }
+  .container11 {
+    width: 100%;
+  }
+  .do-fsico-ao {
+    font-size: 28px;
+    line-height: 1.1;
+    text-align: center;
+  }
+  .uma-plataforma-integrada2 {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  /* Cards empilhados (mobile-process-cards) já cobertos por @media (max-width: 899px).
+     Aqui só ajustamos para mobile estreito: stats em coluna, padding menor. */
+  .mobile-process-card {
+    padding: 20px;
+    gap: 14px;
+  }
+  .mobile-process-card-head {
+    gap: 10px;
+  }
+  .mobile-process-num {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  .mobile-process-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .mobile-process-title {
+    font-size: 17px;
+  }
+  .mobile-process-body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .mobile-process-stats {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    gap: 8px;
+  }
+  .mobile-process-stat {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+  .mobile-process-stat-value {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .mobile-process-stat-label {
+    flex: 1;
+  }
+  .container-container {
+    flex-direction: column;
+    gap: 28px;
+    align-items: stretch;
+  }
+  .container12 {
+    width: 100%;
+  }
+  .container13 {
+    height: auto;
+    min-height: 280px;
+    padding-left: 0;
+  }
+  .container18 {
+    width: 100%;
+    height: auto;
+    gap: 24px;
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+  /* Linhas conectoras absolutas — reposicionar à esquerda */
+  .container14, .container15, .container16, .container17 {
+    left: 17px;
+  }
+  /* Step labels mobilizadas — absolutas viram inline */
+  .container21, .container24, .container27, .container30, .container33 {
+    position: absolute;
+    top: 7.5px;
+    left: 48px;
+    width: auto;
+    max-width: calc(100% - 56px);
+    height: auto;
+  }
+  .step-label {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  .container34 {
+    margin-top: 8px;
+    text-align: center;
+  }
+  .icon-parent {
+    position: relative;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+  }
+  .container35 {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+  .frame-div {
+    gap: 16px;
+  }
+  .digitalizao-de-alta {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+  .vector-icon4 {
+    width: 26px;
+    height: 26px;
+  }
+  .paragraph5 {
+    height: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .container39 {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .container40 {
+    width: 100%;
+    height: auto;
+    min-height: 64px;
+    padding: 12px 14px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  .container41 {
+    height: auto;
+    flex: 0 0 auto;
+  }
+  .b {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .container42 {
+    height: auto;
+    flex: 1 1 auto;
+    text-align: left;
+  }
+  .monitoramento {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 10px;
+    line-height: 1.3;
+    letter-spacing: 0.4px;
+  }
+
+  /* ===== FEATURES GRID (6 cards) ===== */
+  .container-parent2 {
+    padding: 56px 16px;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .container49 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  .seu-arquivo-fsico {
+    font-size: 28px;
+    line-height: 1.1;
+    text-align: center;
+  }
+  .container50, .container52, .container54,
+  .container56, .container58, .container60 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 24px 20px;
+    box-sizing: border-box;
+  }
+  .frame-parent,
+  .thermometersimple-parent,
+  .barcode-parent {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    gap: 16px;
+  }
+  .frame-group {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .bellringing-parent {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+  .heading-36, .heading-37, .heading-39 {
+    height: auto;
+  }
+  .notificaes-em-tempo,
+  .proteo-de-dados {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 18px;
+    line-height: 1.25;
+    width: 100%;
+    display: block;
+  }
+  .paragraph6, .paragraph7 {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+    width: 100%;
+  }
+  .notificaes-imediatas-por {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .container51, .container53 {
+    height: auto;
+    font-size: 26px;
+  }
+  .reduo-de-perdas,
+  .em-tempo-real {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    display: block;
+  }
+  /* Hover image hidden on touch */
+  .feature-card::before { display: none; }
+  .feature-card:hover > * { opacity: 1; }
+
+  /* ===== COMPLIANCE (dark) ===== */
+  .dashboardpreview {
+    padding: 56px 20px;
+    background-color: #0f172a;
+  }
+  .container62 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+  .container63 {
+    gap: 32px;
+    width: 100%;
+  }
+  .container64, .container67 {
+    width: 100%;
+    max-width: none;
+    gap: 16px;
+  }
+  .heading-312, .heading-313 {
+    min-height: 0;
+  }
+  .conformidade-legal {
+    font-size: 24px;
+    line-height: 1.15;
+  }
+  .container65, .container68 {
+    width: 100%;
+    max-width: none;
+    font-size: 14px;
+  }
+  .lgpd-proteo {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .lgpd-proteo br { display: none; }
+  .chatgpt-image-5-de-mai-de-202,
+  .gemini-generated-image-10zq711-icon {
+    display: none;
+  }
+
+  /* ===== TARGET / SOLUÇÕES ===== */
+  .container-parent3 {
+    padding: 56px 16px;
+    background-color: #f8fafc;
+  }
+  .container69 {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .solues-para-o {
+    font-size: 28px;
+  }
+  .uma-plataforma-integrada3 {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .container-parent4 {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    gap: 12px;
+  }
+  .gemini-generated-image-79qp027-icon { display: none; }
+
+  /* ===== ACCORDION (dark) ===== */
+  .dashboardpreview2 {
+    padding: 56px 16px;
+    background-color: #0f172a;
+  }
+  .frame-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    gap: 32px;
+  }
+  .heading-2-parent {
+    gap: 16px;
+  }
+  .heading-25 {
+    min-height: 0;
+  }
+  .container-parent5 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .container-parent5 > * {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: auto;
+    min-height: 56px;
+  }
+  .container77 {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .mapeamento-de-acervo {
+    font-size: 15px;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  /* ===== INTELLIGENCE (dark) ===== */
+  .dashboardpreview3 {
+    padding: 56px 20px;
+    background-color: #0f172a;
+  }
+  .heading-26 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  .a-inteligncia-que-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 28px;
+    line-height: 1.15;
+    text-align: center;
+    display: block;
+  }
+  .uma-plataforma-integrada5 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .uma-plataforma-integrada-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .digitalizao-de-alta-performa {
+    padding-left: 22px;
+  }
+  .gemini-generated-image-lv1jszl-icon {
+    display: none;
+  }
+
+  /* ===== CTA FORM ===== */
+  .ctasection {
+    padding: 56px 16px;
+    background-color: #ea580c;
+  }
+  .container100 {
+    flex-direction: column;
+    gap: 32px;
+    padding: 0;
+  }
+  .container101 {
+    width: 100%;
+    max-width: none;
+    gap: 16px;
+  }
+  .heading-27 {
+    min-height: 0;
+  }
+  .pronto-para-transformar {
+    font-size: 28px;
+    line-height: 1.15;
+    text-align: center;
+  }
+  .paragraph18 {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+  }
+  .agende-uma-demonstrao {
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .container102 {
+    position: relative;
+    height: auto;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .container103, .container104, .container105, .container106 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 240px;
+    justify-content: flex-start;
+  }
+  .container107 {
+    width: 100%;
+    max-width: none;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+  .falar-com-um {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+  .toggle-button-elevated2 {
+    width: 100%;
+  }
+  .state-layer8 {
+    padding: 14px 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* ===== NAVBAR — esconde links no mobile, mostra só logo + CTA ===== */
+  .component-3 {
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
+    height: 60px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    top: 8px;
+  }
+  .container-parent7 {
+    display: none;
+  }
+  .container121 {
+    gap: 6px;
+  }
+  .logo-container {
+    width: 36px;
+  }
+  .vector-icon40 {
+    width: 13px;
+    height: 14px;
+  }
+  .vector-icon41 {
+    width: 36px;
+    height: 24px;
+    margin-top: -4px;
+  }
+  .company-name {
+    font-size: 24px;
+  }
+
+  /* ===== FAB WhatsApp — menor no mobile ===== */
+  .fab {
+    bottom: 16px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
+  }
+  .state-layer12 {
+    width: 56px;
+    height: 56px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .icon17 {
+    height: 28px;
+  }
+}
+
+/* ============================================================
+   MOBILE-SMALL (≤400px) — ajustes finos para iPhone SE/X
+   ============================================================ */
+@media (max-width: 400px) {
+  .seus-documentos-esto {
+    font-size: 26px;
+  }
+  .hero-inner {
+    padding: 20px 16px;
+  }
+  .hero {
+    padding: 88px 12px 40px;
+  }
+  .container-parent,
+  .container-group,
+  .container-parent2,
+  .dashboardpreview,
+  .container-parent3,
+  .dashboardpreview2,
+  .dashboardpreview3,
+  .ctasection {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .frame-parent4, .frame-parent5, .frame-parent6 {
+    padding: 10px 6px;
+  }
+  .frame-parent4 .seus-documentos-esto,
+  .frame-parent5 .seus-documentos-esto,
+  .frame-parent6 .seus-documentos-esto {
+    font-size: 10px;
+  }
+  .os-desafios-do,
+  .do-fsico-ao,
+  .seu-arquivo-fsico,
+  .a-inteligncia-que-container,
+  .solues-para-o,
+  .pronto-para-transformar {
+    font-size: 24px !important;
+  }
+}

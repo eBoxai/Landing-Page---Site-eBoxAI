@@ -122,91 +122,130 @@ export default function FigmaLandingPage() {
     const el = processRef.current;
     if (!el) return;
 
-    let inView = false;
-    let currentStep = 0;
-    let lock = false;
+    const mq = window.matchMedia("(min-width: 900px)");
     const lastIndex = PROCESS_STEPS.length - 1;
+    let cleanup: (() => void) | null = null;
 
-    // Posição do topo da viewport onde a seção começa a "travar" — abaixo do navbar fixo.
-    // Menor = trava mais cedo (seção mais alta). Maior = trava mais tarde (seção mais baixa).
-    const LOCK_AT_TOP = 40;
-    let wasInView = false;
-    let lastScrollY = window.scrollY;
+    const enable = () => {
+      let inView = false;
+      let currentStep = 0;
+      let lock = false;
 
-    const onScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const sectionH = el.offsetHeight;
-      const goingDown = window.scrollY > lastScrollY;
-      lastScrollY = window.scrollY;
+      // Posição do topo da viewport onde a seção começa a "travar" — abaixo do navbar fixo.
+      // Menor = trava mais cedo (seção mais alta). Maior = trava mais tarde (seção mais baixa).
+      const LOCK_AT_TOP = 40;
+      let wasInView = false;
+      let lastScrollY = window.scrollY;
+      setActiveStep(0);
+      // eslint-disable-next-line no-console
+      console.log("[process-lock] ENABLE — width:", window.innerWidth, "section top:", el.getBoundingClientRect().top, "section h:", el.offsetHeight);
 
-      // Lock ativo: topo da seção já passou o gatilho E ainda há seção visível abaixo
-      const nowInView =
-        rect.top <= LOCK_AT_TOP && rect.top > -(sectionH - 200);
+      const onScroll = () => {
+        const rect = el.getBoundingClientRect();
+        const sectionH = el.offsetHeight;
+        const goingDown = window.scrollY > lastScrollY;
+        lastScrollY = window.scrollY;
 
-      // Reset step quando ENTRA descendo (cruza o gatilho de cima pra baixo)
-      if (nowInView && !wasInView && goingDown) {
-        currentStep = 0;
-        setActiveStep(0);
+        // Lock ativo: topo da seção já passou o gatilho E ainda há seção visível abaixo
+        const nowInView =
+          rect.top <= LOCK_AT_TOP && rect.top > -(sectionH - 200);
+
+        if (nowInView !== inView) {
+          // eslint-disable-next-line no-console
+          console.log("[process-lock]", nowInView ? "→ IN VIEW" : "← OUT", "rect.top:", Math.round(rect.top), "sectionH:", sectionH);
+        }
+        el.dataset.lockActive = nowInView ? "true" : "false";
+
+        // Reset step quando ENTRA descendo (cruza o gatilho de cima pra baixo)
+        if (nowInView && !wasInView && goingDown) {
+          currentStep = 0;
+          setActiveStep(0);
+        }
+
+        inView = nowInView;
+        wasInView = nowInView;
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      const onWheel = (e: WheelEvent) => {
+        if (!inView) return;
+        const goingDown = e.deltaY > 0;
+        // Apenas trava na rolagem PRA BAIXO. Rolagem pra cima passa livre.
+        if (!goingDown) return;
+        // Já no último step + rolando pra baixo: libera pra próxima seção
+        if (currentStep >= lastIndex) {
+          // eslint-disable-next-line no-console
+          console.log("[process-lock] release — last step reached");
+          return;
+        }
+        // Captura e avança step
+        e.preventDefault();
+        if (lock) return;
+        lock = true;
+        currentStep = Math.min(lastIndex, currentStep + 1);
+        // eslint-disable-next-line no-console
+        console.log("[process-lock] step", currentStep, "of", lastIndex);
+        setActiveStep(currentStep);
+        window.setTimeout(() => {
+          lock = false;
+        }, 550);
+      };
+
+      let touchStartY = 0;
+      const onTouchStart = (e: TouchEvent) => {
+        touchStartY = e.touches[0]?.clientY ?? 0;
+      };
+      const onTouchMove = (e: TouchEvent) => {
+        if (!inView) return;
+        const y = e.touches[0]?.clientY ?? 0;
+        const dy = touchStartY - y;
+        if (Math.abs(dy) < 24) return;
+        const goingDown = dy > 0;
+        if (!goingDown) return;
+        if (currentStep >= lastIndex) return;
+        e.preventDefault();
+        if (lock) return;
+        lock = true;
+        currentStep = Math.min(lastIndex, currentStep + 1);
+        setActiveStep(currentStep);
+        touchStartY = y;
+        window.setTimeout(() => {
+          lock = false;
+        }, 550);
+      };
+
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+
+      return () => {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("wheel", onWheel);
+        window.removeEventListener("touchstart", onTouchStart);
+        window.removeEventListener("touchmove", onTouchMove);
+      };
+    };
+
+    const apply = () => {
+      cleanup?.();
+      cleanup = null;
+      if (mq.matches) {
+        // Desktop: ativa o scroll-lock.
+        cleanup = enable();
+      } else {
+        // Mobile/tablet: mostra cards empilhados (mobile-process-cards) — sem trava.
+        setActiveStep(lastIndex);
       }
-
-      inView = nowInView;
-      wasInView = nowInView;
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    apply();
+    mq.addEventListener("change", apply);
 
-    const onWheel = (e: WheelEvent) => {
-      if (!inView) return;
-      const goingDown = e.deltaY > 0;
-      // Apenas trava na rolagem PRA BAIXO. Rolagem pra cima passa livre.
-      if (!goingDown) return;
-      // Já no último step + rolando pra baixo: libera pra próxima seção
-      if (currentStep >= lastIndex) return;
-      // Captura e avança step
-      e.preventDefault();
-      if (lock) return;
-      lock = true;
-      currentStep = Math.min(lastIndex, currentStep + 1);
-      setActiveStep(currentStep);
-      window.setTimeout(() => {
-        lock = false;
-      }, 550);
-    };
-
-    // Touch handling for mobile/tablet
-    let touchStartY = 0;
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0]?.clientY ?? 0;
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      if (!inView) return;
-      const y = e.touches[0]?.clientY ?? 0;
-      const dy = touchStartY - y;
-      if (Math.abs(dy) < 24) return;
-      const goingDown = dy > 0;
-      // Apenas trava no swipe pra baixo (conteúdo sobe). Pra cima passa livre.
-      if (!goingDown) return;
-      if (currentStep >= lastIndex) return;
-      e.preventDefault();
-      if (lock) return;
-      lock = true;
-      currentStep = Math.min(lastIndex, currentStep + 1);
-      setActiveStep(currentStep);
-      touchStartY = y;
-      window.setTimeout(() => {
-        lock = false;
-      }, 550);
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
+      mq.removeEventListener("change", apply);
+      cleanup?.();
     };
   }, []);
 
@@ -348,6 +387,31 @@ export default function FigmaLandingPage() {
           Transformamos documentos físicos em conhecimento estruturado e pesquisável usando OCR
           avançado e IA generativa. Um processo técnico, escalável e totalmente automatizado.
         </div>
+        {/* Mobile-only: stack todos os 5 steps como cards empilhados */}
+        <div className="mobile-process-cards">
+          {PROCESS_STEPS.map((step) => {
+            const StepIcon = step.Icon;
+            return (
+              <div key={step.num} className="mobile-process-card">
+                <div className="mobile-process-card-head">
+                  <span className="mobile-process-num">{step.num}</span>
+                  <StepIcon className="mobile-process-icon" weight="regular" />
+                  <b className="mobile-process-title">{step.title}</b>
+                </div>
+                <p className="mobile-process-body">{step.body}</p>
+                <div className="mobile-process-stats">
+                  {step.stats.map((s, i) => (
+                    <div key={i} className="mobile-process-stat">
+                      <b className="mobile-process-stat-value">{s.value}</b>
+                      <span className="mobile-process-stat-label">{s.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         <div className="component-1">
           <div className="container-container">
             <div className="container12">
