@@ -185,6 +185,8 @@
   	box-shadow: 0px 4px 9.2px 5px rgba(0, 0, 0, 0.25);
   	border-radius: 16px;
   	object-fit: cover;
+  	/* Mostra a parte ESQUERDA da imagem (corta o lado direito) */
+  	object-position: left center;
 }
 /* ===== Process section (25:2761) — flex column responsivo ===== */
 .container-group {
@@ -1330,6 +1332,8 @@
   	width: clamp(220px, 30.9vw, 445px);
   	height: clamp(300px, 42.29vw, 609px);
   	object-fit: cover;
+  	/* Mostra a parte DIREITA da imagem (inverso do 122dul — corta o lado esquerdo) */
+  	object-position: right center;
 }
 @media (max-width: 1023px) {
   	.gemini-generated-image-79qp027-icon {

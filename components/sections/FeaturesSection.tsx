@@ -23,7 +23,7 @@ export default function FeaturesSection() {
         className="container50 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/bellringing.png')",
+            "--hover-image": "url('/images/feature-hover/bellringing.webp')",
           } as React.CSSProperties
         }
       >
@@ -63,7 +63,7 @@ export default function FeaturesSection() {
         className="container52 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/thermometer.png')",
+            "--hover-image": "url('/images/feature-hover/thermometer.webp')",
           } as React.CSSProperties
         }
       >
@@ -95,7 +95,7 @@ export default function FeaturesSection() {
         className="container54 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/barcode.png')",
+            "--hover-image": "url('/images/feature-hover/barcode.webp')",
           } as React.CSSProperties
         }
       >
@@ -131,7 +131,7 @@ export default function FeaturesSection() {
         className="container56 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/lock.png')",
+            "--hover-image": "url('/images/feature-hover/lock.webp')",
           } as React.CSSProperties
         }
       >
@@ -163,7 +163,7 @@ export default function FeaturesSection() {
         className="container58 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/shieldcheck.png')",
+            "--hover-image": "url('/images/feature-hover/shieldcheck.webp')",
           } as React.CSSProperties
         }
       >
@@ -195,7 +195,7 @@ export default function FeaturesSection() {
         className="container60 feature-card"
         style={
           {
-            "--hover-image": "url('/images/feature-hover/timer.png')",
+            "--hover-image": "url('/images/feature-hover/timer.webp')",
           } as React.CSSProperties
         }
       >

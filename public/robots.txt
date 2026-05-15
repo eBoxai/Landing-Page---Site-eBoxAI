@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Não indexar o endpoint do form (resposta JSON sem valor SEO)
+Disallow: /send-email.php
+
+Sitemap: https://eboxai.com.br/sitemap.xml

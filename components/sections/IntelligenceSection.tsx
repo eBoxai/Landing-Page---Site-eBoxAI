@@ -36,8 +36,10 @@ export default function IntelligenceSection() {
       </div>
       <img
         className="gemini-generated-image-lv1jszl-icon"
-        src="/images/gemini-lv1jsz.jpg"
-        alt=""
+        src="/images/gemini-lv1jsz.webp"
+        alt="Inteligência artificial organizando documentos digitalizados"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );
