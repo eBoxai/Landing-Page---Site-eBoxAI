@@ -87,7 +87,7 @@ export default function AccordionSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="dashboardpreview2">
+    <div className="dashboardpreview2" id="features">
       <div className="frame-container">
         <div className="heading-2-parent">
           <div className="heading-25">

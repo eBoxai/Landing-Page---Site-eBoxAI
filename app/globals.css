@@ -36,6 +36,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Offset pra navbar fixo (top ~21px + height ~84px = ~105px) não cobrir
+     a seção quando clicar nos links âncora do menu. */
+  scroll-padding-top: 110px;
 }
 
 body {
@@ -78,4 +81,139 @@ body {
 .teste{
 
     background-color: blue;
+}
+
+/* =========================================================
+   LEGAL MODAL (Termos de Uso / Política de Privacidade)
+   ========================================================= */
+.legal-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.65);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: legalFadeIn 180ms ease-out;
+}
+.legal-modal-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 720px;
+  max-height: min(90vh, 800px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: legalSlideUp 220ms ease-out;
+}
+.legal-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+.legal-modal-title {
+  font-family: "League Gothic", "Inter", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #0f172a;
+  margin: 0;
+}
+.legal-modal-close {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: #64748b;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+  flex-shrink: 0;
+}
+.legal-modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.legal-modal-close:focus-visible {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
+}
+.legal-modal-body {
+  padding: 20px 24px 28px;
+  overflow-y: auto;
+  flex: 1;
+  color: #475569;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.legal-body p,
+.legal-body ul,
+.legal-body ol {
+  margin: 0 0 12px;
+}
+.legal-body ul,
+.legal-body ol {
+  padding-left: 22px;
+}
+.legal-body li {
+  margin-bottom: 6px;
+}
+.legal-body h3 {
+  margin: 22px 0 10px;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #0f172a;
+  letter-spacing: 0.01em;
+}
+.legal-body strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+.legal-meta {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+/* Link de termos/privacidade no checkbox do form */
+.legal-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: #ea580c;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.legal-link:hover {
+  color: #c2410c;
+}
+.legal-link:focus-visible {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@keyframes legalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes legalSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }

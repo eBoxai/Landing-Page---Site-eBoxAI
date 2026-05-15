@@ -49,7 +49,7 @@ export default function HeroSection() {
                 </div>
               </a>
             </div>
-            <a href="#archive" className="button-outline2">
+            <a href="#features" className="button-outline2">
               <div className="button-outline3">
                 <div className="content9">
                   <div className="state-layer11">

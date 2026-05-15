@@ -41,7 +41,7 @@ const PARAGRAPH_CLASS = ["paragraph12", "paragraph13", "paragraph13", "paragraph
 
 export default function TargetSection() {
   return (
-    <div className="container-parent3">
+    <div className="container-parent3" id="target">
       <div className="container-stage3">
         <div className="container69">
           <div className="heading-22">

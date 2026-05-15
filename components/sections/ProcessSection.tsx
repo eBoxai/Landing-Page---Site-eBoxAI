@@ -25,7 +25,7 @@ export default function ProcessSection() {
   const ActiveIcon = active.Icon;
 
   return (
-    <div ref={processRef} className="container-group">
+    <div ref={processRef} className="container-group" id="process">
       <div className="container11">
         <div className="heading-22">
           <div className="do-fsico-ao">

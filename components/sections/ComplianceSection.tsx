@@ -25,7 +25,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 
 export default function ComplianceSection() {
   return (
-    <div className="dashboardpreview">
+    <div className="dashboardpreview" id="compliance">
       <div className="container62">
         <div className="container63">
           <div className="container64">

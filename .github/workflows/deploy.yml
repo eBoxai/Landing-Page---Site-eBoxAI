@@ -1,0 +1,96 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  # Permite rodar manualmente pela aba Actions do GitHub
+  workflow_dispatch:
+
+# Evita rodar 2 deploys em paralelo no mesmo branch
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20 + cache npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build estático (Next.js export)
+        run: npm run build
+
+      - name: Empacotar em ZIP
+        run: |
+          cd out
+          zip -rq ../site.zip . -x "__next*.txt"
+          echo "Tamanho do ZIP: $(du -h ../site.zip | cut -f1)"
+
+      - name: Upload do ZIP via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          source: site.zip
+          target: "~/domains/eboxai.com.br/public_html/"
+
+      - name: Limpar arquivos antigos + extrair nova versão
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          script: |
+            set -e
+            cd ~/domains/eboxai.com.br/public_html/
+
+            # Backup do estado atual (pra rollback rápido se precisar)
+            tar -czf ~/last-deploy-backup.tar.gz \
+              --exclude=site.zip \
+              $(ls -A 2>/dev/null | grep -v '^site\.zip$' || true) 2>/dev/null || true
+
+            # Limpa tudo exceto o ZIP recém-enviado
+            find . -maxdepth 1 -mindepth 1 ! -name 'site.zip' -exec rm -rf {} +
+
+            # Extrai e remove o ZIP
+            unzip -q site.zip
+            rm site.zip
+
+            # Valida que o index.html chegou
+            if [ ! -f index.html ]; then
+              echo "❌ Erro: index.html não encontrado após extração!"
+              exit 1
+            fi
+
+            echo "✅ Deploy concluído — $(ls -1 | wc -l) itens em public_html/"
+            ls -la
+
+      - name: Smoke test (verifica que o site responde HTTP 200)
+        run: |
+          sleep 3
+          for i in 1 2 3; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://eboxai.com.br/)
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Site online: HTTP $STATUS (tentativa $i)"
+              exit 0
+            fi
+            echo "Tentativa $i: HTTP $STATUS — aguardando…"
+            sleep 5
+          done
+          echo "❌ Site não respondeu 200 após 3 tentativas"
+          exit 1
