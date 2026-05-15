@@ -65,13 +65,17 @@ export default function ComplianceSection() {
       </div>
       <img
         className="chatgpt-image-5-de-mai-de-202"
-        src="/images/chatgpt-2214.jpg"
-        alt=""
+        src="/images/chatgpt-2214.webp"
+        alt="Painel de conformidade LGPD com indicadores de segurança"
+        loading="lazy"
+        decoding="async"
       />
       <img
         className="gemini-generated-image-10zq711-icon"
-        src="/images/gemini-10zq71.jpg"
-        alt=""
+        src="/images/gemini-10zq71.webp"
+        alt="Cadeado digital simbolizando proteção de dados"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

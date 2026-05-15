@@ -14,8 +14,10 @@ export default function HeroSection() {
     <div className="hero">
       <img
         className="chatgpt-image-5-de-mai-de-2022"
-        src="/images/hero-1925.jpg"
-        alt=""
+        src="/images/hero-1925.webp"
+        alt="Acervo de arquivos físicos do setor público — fundo da seção hero"
+        fetchPriority="high"
+        decoding="async"
       />
       <div className="hero-inner">
         <div className="frame-parent3">

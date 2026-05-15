@@ -66,8 +66,10 @@ export default function ProblemsSection() {
       </div>
       <img
         className="gemini-generated-image-122dul1-icon"
-        src="/images/gemini-122dul.jpg"
-        alt=""
+        src="/images/gemini-122dul.webp"
+        alt="Servidor pública trabalhando em escritório com pilhas de documentos"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   );

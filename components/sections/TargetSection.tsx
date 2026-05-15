@@ -66,8 +66,10 @@ export default function TargetSection() {
         </div>
         <img
           className="gemini-generated-image-79qp027-icon"
-          src="/images/gemini-79qp02.jpg"
-          alt=""
+          src="/images/gemini-79qp02.webp"
+          alt="Mapa do Brasil ilustrando órgãos públicos atendidos pelo eBoxAI"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>
