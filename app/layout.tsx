@@ -69,9 +69,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  // Favicon: app/icon.svg é auto-detectado pelo Next.js App Router → <link rel="icon"> automático.
 };
 
 export const viewport: Viewport = {
@@ -112,7 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "Organization",
               name: "e-BoxAI",
               url: SITE_URL,
-              logo: `${SITE_URL}/favicon.ico`,
+              logo: `${SITE_URL}/icon.svg`,
               description: SITE_DESCRIPTION,
               address: {
                 "@type": "PostalAddress",
