@@ -36,8 +36,8 @@ export const PROCESS_STEPS: ProcessStep[] = [
     label: "Processamento Inteligente",
     shortLabel: "Processamento",
     Icon: Lightning,
-    title: "Processamento com IA",
-    body: "OCR avançado e modelos de IA generativa extraem texto, classificam automaticamente e estruturam metadados em segundos. Múltiplos idiomas, layouts e tipos de arquivo são processados sem intervenção manual, com correção contínua via aprendizado de máquina.",
+    title: "Processamento Inteligente",
+    body: "Digitalize e processe grandes volumes de documentos simultaneamente sem perda de velocidade. O motor de processamento da e-BoxAI organiza, classifica e valida cada arquivo em tempo real, eliminando gargalos manuais e permitindo que sua equipe foque na análise, não na burocracia do arquivamento.",
     stats: [
       { value: "95%+", label: "PRECISÃO OCR" },
       { value: "50+", label: "IDIOMAS" },
@@ -50,7 +50,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     shortLabel: "Indexação",
     Icon: CheckCircle,
     title: "Indexação Padronizada",
-    body: "Cada documento é indexado seguindo a tabela de temporalidade e classificação do CONARQ. Metadados estruturados garantem conformidade legal, recuperação rápida para auditoria e prazos automáticos para transferência ou eliminação.",
+    body: "Transformamos o caos de arquivos em um banco de dados estruturado. Cada documento recebe metadados automáticos e tags de identificação, permitindo que você localize qualquer arquivo físico ou digital em segundos através de uma busca por palavras-chave ou categorias específicas.",
     stats: [
       { value: "100%", label: "CONFORMIDADE" },
       { value: "CONARQ", label: "+ e-ARQ BRASIL" },
@@ -63,7 +63,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     shortLabel: "Estruturação",
     Icon: Folders,
     title: "Estrutura Organizada",
-    body: "A IA classifica documentos em hierarquias customizáveis por órgão, secretaria ou tipo documental. Tags inteligentes e relações entre arquivos formam uma árvore navegável que reflete a realidade do seu acervo público.",
+    body: "Unificamos a organização das prateleiras físicas com a taxonomia digital. Nossa plataforma estrutura metadados e localizações geográficas dentro do depósito, permitindo uma gestão visual e técnica completa do inventário com máxima precisão e controle de ponta a ponta.",
     stats: [
       { value: "∞", label: "HIERARQUIA" },
       { value: "TAGS", label: "+ RELAÇÕES" },
@@ -75,8 +75,8 @@ export const PROCESS_STEPS: ProcessStep[] = [
     label: "Disponibilidade",
     shortLabel: "Disponibilidade",
     Icon: MagnifyingGlass,
-    title: "Acesso Imediato",
-    body: "Pesquise por conceito, autor, data ou conteúdo. Resultados em milissegundos via plataforma web, mobile ou API. Trilha de auditoria registra cada acesso com permissões granulares por usuário, secretaria ou tipo de documento.",
+    title: "Disponibilidade",
+    body: " Localize e visualize seus documentos de forma imediata. Integramos filtros inteligentes e metadados para que a recuperação de qualquer arquivo seja precisa, informando instantaneamente o status de consulta e a localização física para retirada, se necessário.",
     stats: [
       { value: "<200ms", label: "BUSCA" },
       { value: "WEB", label: "+ MOBILE + API" },

@@ -12,13 +12,19 @@ const DARK = "#020617";
 export default function HeroSection() {
   return (
     <div className="hero">
-      <img
-        className="chatgpt-image-5-de-mai-de-2022"
-        src="/images/hero-1925.webp"
-        alt="Acervo de arquivos físicos do setor público — fundo da seção hero"
-        fetchPriority="high"
-        decoding="async"
-      />
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          srcSet="/images/empresa-arquivamento.webp"
+        />
+        <img
+          className="chatgpt-image-5-de-mai-de-2022"
+          src="/images/hero-1925.webp"
+          alt="Acervo de arquivos físicos do setor público — fundo da seção hero"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
       <div className="hero-inner">
         <div className="frame-parent3">
           <div className="seus-documentos-esto-seguros-parent">
@@ -129,7 +135,7 @@ export default function HeroSection() {
         <div className="arrowright">
           <CaretDownIcon
             className="vector-icon39"
-            style={{ color: DARK }}
+            style={{ color: WHITE }}
           />
         </div>
       </div>

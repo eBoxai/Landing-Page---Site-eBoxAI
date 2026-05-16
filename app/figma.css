@@ -54,7 +54,8 @@
 .container2 {
   	position: absolute;
   	top: 298px;
-  	left: 144px;
+  	/* Figma 1440: left:144 → 10vw. Escala com o viewport pra acompanhar a imagem (right: clamp 10.69vw). */
+  	left: clamp(16px, 10vw, 144px);
   	display: flex;
   	flex-direction: column;
   	align-items: flex-start;
@@ -65,7 +66,8 @@
   	font-family: Inter;
 }
 .container3 {
-  	width: 477px;
+  	/* Figma 1440: width:477 → 33.13vw. Escala junto com a imagem pra não sobrepor entre 1024–1440. */
+  	width: clamp(300px, 33.13vw, 477px);
   	height: 95px;
   	border-radius: 12px;
   	background-color: #ea580c;
@@ -177,8 +179,8 @@
 }
 .gemini-generated-image-122dul1-icon {
   	position: absolute;
-  	/* Figma 1440: top:291 left:851 w:435 h:426 → ancorado pela direita pra escalar */
-  	top: clamp(180px, 20.21vw, 291px);
+  	/* Topo alinhado ao 1º card (.container2 top:298px) em qualquer viewport ≥1024. */
+  	top: 298px;
   	right: clamp(16px, 10.69vw, 154px);
   	width: clamp(240px, 30.21vw, 435px);
   	height: clamp(240px, 29.58vw, 426px);
@@ -712,7 +714,13 @@
   	font-size: clamp(28px, 3.33vw, 48px);
   	line-height: 1.1;
   	text-align: center;
+}
+/* Cor escopada por seção: claro no fundo escuro (Accordion), escuro no fundo claro (Features). */
+.dashboardpreview2 .seu-arquivo-fsico {
   	color: #f8fafc !important;
+}
+.container-parent2 .seu-arquivo-fsico {
+  	color: #020617 !important;
 }
 /* Garante que o span sem classe dentro do heading herde o branco
    (alguns browsers/Tailwind preflight resetam color em spans). */
@@ -1332,8 +1340,8 @@
   	width: clamp(220px, 30.9vw, 445px);
   	height: clamp(300px, 42.29vw, 609px);
   	object-fit: cover;
-  	/* Mostra a parte DIREITA da imagem (inverso do 122dul — corta o lado esquerdo) */
-  	object-position: right center;
+  	/* Desloca o crop pra esquerda (75% em vez de right/100%) — mostra mais do miolo da imagem. */
+  	object-position: 90% center;
 }
 @media (max-width: 1023px) {
   	.gemini-generated-image-79qp027-icon {
@@ -2261,6 +2269,11 @@
 }
 .container110 {
   	align-self: stretch;
+  	/* Cap em 1440px + margin auto pra centralizar o conteúdo em viewports largos
+  	   (sem isso, as colunas ficam encostadas na esquerda em telas grandes). */
+  	width: 100%;
+  	max-width: 1440px;
+  	margin: 0 auto;
   	display: flex;
   	flex-direction: column;
   	align-items: flex-start;
@@ -2962,17 +2975,20 @@
   	width: 71px;
   	height: 71px;
   	flex-shrink: 0;
+  	/* Animação de "pulinho" pra indicar scroll. Keyframes bounceY estão em globals.css. */
+  	animation: bounceY 1.6s ease-in-out infinite;
+}
+/* Respeita usuários com prefers-reduced-motion (acessibilidade). */
+@media (prefers-reduced-motion: reduce) {
+  .caretdown { animation: none; }
 }
 .vector-icon39 {
   	position: absolute;
-  	height: 37.46%;
-  	width: 68.73%;
-  	top: 34.37%;
-  	right: 15.64%;
-  	bottom: 28.16%;
-  	left: 15.62%;
+  	/* Ícone ocupa o .caretdown inteiro (71×71) — tamanho intrínseco do SVG. */
+  	inset: 0;
+  	width: 100%;
+  	height: 100%;
   	max-width: 100%;
-  	overflow: hidden;
   	max-height: 100%;
 }
 /* ===== NAVBAR (Component 2 / 2001:3195) — proporção 1vw ≈ 14.4px ===== */
@@ -3431,23 +3447,37 @@
   /* ===== HERO ===== */
   .hero {
     padding: 96px 16px 48px;
-    background-color: transparent;
-    /* Grid 3 colunas: card ocupa linha inteira, 3 pills ficam lado a lado */
+    background-color: #fff;
+    /* Altura travada em 100% da viewport (height, NÃO min-height) — mesmo comportamento
+       em qualquer celular. svh/dvh são variantes responsivas à barra do browser;
+       vh fica como fallback pra browsers antigos. !important sobrepõe o reset geral
+       (.hero, .container-parent, ... { height: auto !important }). */
+    height: 100vh !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    /* Clipa a imagem nos limites do hero — não vaza pra próxima seção em nenhum tamanho de tela. */
+    overflow: hidden !important;
+    /* Grid 3 colunas × 3 linhas: card no topo, imagem ocupa o miolo (1fr), pills colados no fundo. */
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
     align-items: start;
     gap: 24px 8px;
   }
   .hero-inner {
     grid-column: 1 / -1;
+    grid-row: 1;
   }
   .chatgpt-image-5-de-mai-de-2022 {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    /* Sempre 100% da altura do hero — comportamento idêntico em qualquer tamanho de tela.
+       object-fit:cover (herdado) recorta o excesso sem deformar. */
     height: 100%;
-    object-position: 60% 50%;
+    object-fit: cover;
+    object-position: 60% 45%;
     z-index: 0;
   }
   .hero-inner {
@@ -3471,13 +3501,13 @@
     /* Figma H1 mobile: League Gothic 28px line-height 30.8px (1.1) */
     font-size: 28px;
     line-height: 1.1;
-    text-align: left;
+    text-align: center;
   }
   .gesto-inteligente-de {
     /* Figma body mobile: Inter 16px line-height 24px (1.5) */
     font-size: 16px;
     line-height: 1.5;
-    text-align: left;
+    text-align: center;
   }
   .toggle-button-elevated-parent {
     flex-direction: column;
@@ -3523,23 +3553,21 @@
     min-width: 0;
     z-index: 1;
   }
-  /* Container compartilhado dos pills via pseudo-grid — agrupa via flex */
-  .hero > .frame-parent4 { order: 2; }
-  .hero > .frame-parent5 { order: 3; }
-  .hero > .frame-parent6 { order: 4; }
+  /* Pills explicitamente na 3ª linha do grid (colados no fundo do hero). */
+  .hero > .frame-parent4 { order: 2; grid-row: 3; grid-column: 1; }
+  .hero > .frame-parent5 { order: 3; grid-row: 3; grid-column: 2; }
+  .hero > .frame-parent6 { order: 4; grid-row: 3; grid-column: 3; }
   .frame-parent4, .frame-parent5, .frame-parent6 {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 12px 8px;
-    background: rgba(255, 255, 255, 0.55);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    backdrop-filter: blur(12px) saturate(140%);
-    isolation: isolate;
-    will-change: backdrop-filter;
-    transform: translateZ(0);
-    border-radius: 14px;
+    /* Mobile: sem card (background/blur/radius) — só ícone + texto. */
+    padding: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-radius: 0;
     /* Grid pai define a largura: cada pill ocupa 1 coluna */
     width: auto !important;
   }
@@ -4324,5 +4352,184 @@
     width: auto;
     text-align: left;
     font-size: 16px;
+  }
+}
+
+/* ============================================================
+   WIDE SCREENS (>1440px) — centraliza as seções que usam
+   width:100vw + filhos absolutamente posicionados com offsets
+   em px (criados pro design Figma 1440). Sem isso, em viewports
+   maiores os filhos colam nas bordas e deixam o miolo vazio.
+
+   Threshold em 1441px: em telas EXATAS de 1440 (= design nativo
+   do Figma) nada é alterado — o layout original fica pixel-perfect.
+
+   Estratégia: a seção vira um "stage" de 1440px centrado
+   (filhos absolutos passam a se centralizar naturalmente).
+   O fundo é estendido até as bordas do viewport com
+   box-shadow + clip-path (full-bleed sem overflow horizontal).
+   ============================================================ */
+@media (min-width: 1441px) {
+  .container-parent,
+  .container-parent2,
+  .dashboardpreview,
+  .dashboardpreview3 {
+    width: 1440px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: visible;
+  }
+
+  .container-parent,
+  .container-parent2 {
+    box-shadow: 0 0 0 100vmax #f8fafc;
+    clip-path: inset(0 -100vmax);
+  }
+
+  .dashboardpreview,
+  .dashboardpreview3 {
+    box-shadow: 0 0 0 100vmax #0f172a;
+    clip-path: inset(0 -100vmax);
+  }
+
+  /* Hero: o background é full-bleed (100vw), mas os filhos absolutos
+     (.hero-inner + 3 pills) devem acompanhar a navbar — que tem
+     width: min(1344px, 100vw - 32px) centrada → left edge em calc(50% - 672px).
+     Pills: offsets do Figma 1440 a partir do left:48 da navbar (833→785, 984→936, 1140→1092). */
+  .hero-inner {
+    left: calc(50% - 672px);
+  }
+  .frame-parent4 {
+    left: calc(50% + 113px);
+  }
+  .frame-parent5 {
+    left: calc(50% + 264px);
+  }
+  .frame-parent6 {
+    left: calc(50% + 420px);
+  }
+}
+
+/* ============================================================
+   BUTTON HOVER STATES
+   ============================================================ */
+
+/* Transição base nos 4 botões principais. */
+.toggle-button-elevated4 .content8,
+.button-outline2 .content9,
+.button-outline .content7,
+.toggle-button-elevated2 .content6 {
+  transition: background-color 200ms ease, box-shadow 200ms ease,
+              color 200ms ease, transform 200ms ease, border-color 200ms ease;
+}
+
+/* Primary CTA laranja — Hero "Solicitar Demonstração Gratuita" (hover clareia pra #FB923C) */
+.toggle-button-elevated4:hover .content8,
+.toggle-button-elevated4:focus-visible .content8 {
+  background-color: #FB923C;
+  box-shadow: 0 6px 16px rgba(251, 146, 60, 0.45),
+              0 10px 20px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+.toggle-button-elevated4:active .content8 {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Outline — Hero "Saiba mais" (só a borda vira laranja no hover) */
+.button-outline2:hover .content9,
+.button-outline2:focus-visible .content9 {
+  border-color: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.2);
+}
+.button-outline2:hover .label,
+.button-outline2:focus-visible .label,
+.button-outline2:hover .vector-icon34,
+.button-outline2:focus-visible .vector-icon34 {
+  color: #ea580c !important;
+}
+
+/* Outline branco — Footer "Fale com um Especialista" (preenche no hover) */
+.button-outline:hover .content7,
+.button-outline:focus-visible .content7 {
+  background-color: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(248, 250, 252, 0.2);
+}
+.button-outline:hover .label,
+.button-outline:focus-visible .label,
+.button-outline:hover .state-layer9,
+.button-outline:focus-visible .state-layer9 {
+  color: #0f172a !important;
+}
+
+/* CTA Section submit — botão escuro */
+.toggle-button-elevated2:hover .content6,
+.toggle-button-elevated2:focus-visible .content6 {
+  background-color: #1e293b;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+.toggle-button-elevated2:active .content6 {
+  transform: translateY(0);
+}
+
+/* Cursor pointer em todos eles (caso o <a>/<button> não defina). */
+.toggle-button-elevated4,
+.button-outline2,
+.button-outline,
+.toggle-button-elevated2 {
+  cursor: pointer;
+}
+
+/* FAB WhatsApp — flutua sutilmente em loop pra chamar atenção */
+.fab {
+  transition: box-shadow 220ms ease;
+  animation: fabFloat 3.2s ease-in-out infinite;
+}
+@keyframes fabFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.fab .state-layer12 {
+  transition: background-color 220ms ease;
+}
+/* No hover: pausa o flutuar e aplica escala (!important pra sobrepor o transform da animação). */
+.fab:hover,
+.fab:focus-visible {
+  animation-play-state: paused;
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 20px 4px rgba(52, 199, 89, 0.35),
+              0 4px 10px rgba(0, 0, 0, 0.25);
+}
+.fab:hover .state-layer12,
+.fab:focus-visible .state-layer12 {
+  background-color: #25d366;
+}
+.fab:active {
+  transform: scale(1.02) !important;
+}
+
+/* Acessibilidade: respeita usuários com prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  .toggle-button-elevated4 .content8,
+  .button-outline2 .content9,
+  .button-outline .content7,
+  .toggle-button-elevated2 .content6,
+  .fab,
+  .fab .state-layer12 {
+    transition: none;
+  }
+  .toggle-button-elevated4:hover .content8,
+  .button-outline2:hover .content9,
+  .button-outline:hover .content7,
+  .toggle-button-elevated2:hover .content6,
+  .fab:hover {
+    transform: none;
+  }
+  /* Desliga a animação de flutuar pra quem prefere menos movimento. */
+  .fab {
+    animation: none;
   }
 }
