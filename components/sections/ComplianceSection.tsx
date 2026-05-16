@@ -44,7 +44,7 @@ export default function ComplianceSection() {
                 CONARQ
               </CheckItem>
               <CheckItem>
-                U Trilha de Auditoria para Órgãos de <br />
+                Uma Trilha de Auditoria para Órgãos de <br />
                 Controle
               </CheckItem>
               <CheckItem>Assinatura Digital ICP-Brasil Integrada</CheckItem>
