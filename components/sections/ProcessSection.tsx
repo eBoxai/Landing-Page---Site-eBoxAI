@@ -131,7 +131,13 @@ export default function ProcessSection() {
                 {active.stats.map((s, i) => (
                   <div key={i} className="container40">
                     <div className="container41">
-                      <b className="b">{s.value}</b>
+                      <b className="b">
+                        {s.value === "∞" ? (
+                          <span className="stat-infinity">∞</span>
+                        ) : (
+                          s.value
+                        )}
+                      </b>
                     </div>
                     <div className="container42">
                       <div className="monitoramento">{s.label}</div>

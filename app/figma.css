@@ -3396,6 +3396,47 @@
 }
 
 /* ============================================================
+   FEATURES SECTION RESPONSIVO (1024–1440px)
+   Mantém position:absolute (essencial pra alinhar com top:4723 no
+   landing-page), mas usa grid auto-fit pra distribuir os cards
+   uniformemente em qualquer largura/zoom dentro dessa faixa.
+   - >= 1200px efetivos: 3-col (cards ~330+ cada)
+   - 1024-1199px efetivos: 2-col (cards ~440+ cada)
+   - Heading sempre span across todas as colunas.
+   ============================================================ */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .container-parent2 {
+    /* NÃO mexer em position/top/left/width/height — quebra o layout absoluto. */
+    padding: clamp(48px, 4.5vw, 72px) clamp(24px, 3vw, 56px);
+    display: grid;
+    /* auto-fit + minmax(330px) → 3 cols em >=1100ish, 2 cols abaixo. Centralizado natural. */
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: clamp(16px, 1.8vw, 28px);
+    align-content: start;
+    justify-content: center;
+  }
+  .container49 {
+    position: relative;
+    top: auto;
+    left: auto;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 0 auto clamp(16px, 2.4vw, 32px);
+  }
+  .container50, .container52, .container54,
+  .container56, .container58, .container60 {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    min-height: 340px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================================
    MOBILE (≤767px) — single-column responsivo do Figma mobile
    ============================================================ */
 @media (max-width: 767px) {
@@ -4532,4 +4573,17 @@
   .fab {
     animation: none;
   }
+}
+
+/* ============================================================
+   STAT INFINITY — o glifo "∞" renderiza visualmente menor que
+   dígitos na League Gothic; este boost compensa o ótica.
+   ============================================================ */
+.stat-infinity {
+  font-size: 1.45em;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: -0.1em;
+  /* Engrossa o traço do glifo (a League Gothic não tem peso bold). */
+  -webkit-text-stroke: 0.8px currentColor;
 }

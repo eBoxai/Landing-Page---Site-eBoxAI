@@ -17,9 +17,13 @@ const solutions = [
 
 const products = ["Plataforma", "IA & Digitalização", "Segurança", "Empresas"];
 const compliance = ["Política de privacidade", "Termos de uso"];
-const socials = [
-  { Icon: LinkedinLogo, label: "LinkedIn" },
-  { Icon: InstagramLogo, label: "Instagram" },
+const socials: { Icon: typeof LinkedinLogo; label: string; href: string }[] = [
+  { Icon: LinkedinLogo, label: "LinkedIn", href: "#" },
+  {
+    Icon: InstagramLogo,
+    label: "Instagram",
+    href: "https://www.instagram.com/eboxai.app",
+  },
 ];
 
 export default function Footer() {
@@ -39,17 +43,24 @@ export default function Footer() {
             </div>
 
             <div className="container114">
-              {socials.map(({ Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="link"
-                  style={{ textDecoration: "none", color: "#f8fafc" }}
-                >
-                  <Icon size={20} weight="fill" className="icon10" />
-                </a>
-              ))}
+              {socials.map(({ Icon, label, href }) => {
+                const isExternal = href.startsWith("http");
+                return (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="link"
+                    style={{ textDecoration: "none", color: "#f8fafc" }}
+                    {...(isExternal && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                  >
+                    <Icon size={20} weight="fill" className="icon10" />
+                  </a>
+                );
+              })}
             </div>
 
             <div className="container115">

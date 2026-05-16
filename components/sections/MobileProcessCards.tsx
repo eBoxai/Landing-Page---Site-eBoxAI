@@ -73,7 +73,13 @@ export default function MobileProcessCards({
               <div className="mobile-process-stats">
                 {step.stats.map((s, idx) => (
                   <div key={idx} className="mobile-process-stat">
-                    <b className="mobile-process-stat-value">{s.value}</b>
+                    <b className="mobile-process-stat-value">
+                      {s.value === "∞" ? (
+                        <span className="stat-infinity">∞</span>
+                      ) : (
+                        s.value
+                      )}
+                    </b>
                     <span className="mobile-process-stat-label">{s.label}</span>
                   </div>
                 ))}
